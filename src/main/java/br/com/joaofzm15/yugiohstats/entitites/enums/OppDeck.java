@@ -1,6 +1,6 @@
 package br.com.joaofzm15.yugiohstats.entitites.enums;
 
-public enum OppDecks {
+public enum OppDeck {
 	
 	IGNISTER,
 	ASSAULT_MODE,
