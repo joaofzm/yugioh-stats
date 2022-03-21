@@ -1,7 +1,10 @@
 package br.com.joaofzm15.yugiohstats.entitites;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.joaofzm15.yugiohstats.entitites.enums.OppDeck;
 
@@ -14,18 +17,22 @@ public class Duel implements Serializable {
 	private Deck deck;
 	private OppDeck oppDeck;
 	private int turns;
+	
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy' 'HH:mm:ss' Z'", timezone = "GMT-3")
+	private Instant date;
 
 	public Duel() {
 
 	}
 
-	public Duel(Long id, boolean coinResult, boolean result, Deck deck, OppDeck oppDeck, int turns) {
+	public Duel(Long id, boolean coinResult, boolean result, Deck deck, OppDeck oppDeck, int turns, Instant date) {
 		this.id = id;
 		this.coinResult = coinResult;
 		this.result = result;
 		this.deck = deck;
 		this.oppDeck = oppDeck;
 		this.turns = turns;
+		this.date = date;
 	}
 
 	public Long getId() {
@@ -74,6 +81,14 @@ public class Duel implements Serializable {
 
 	public void setTurns(int turns) {
 		this.turns = turns;
+	}
+	
+	public Instant getDate() {
+		return date;
+	}
+
+	public void setDate(Instant date) {
+		this.date = date;
 	}
 
 	@Override
