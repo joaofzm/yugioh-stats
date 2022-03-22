@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Player implements Serializable {
@@ -18,16 +21,17 @@ public class Player implements Serializable {
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-//	private List<Deck> decks;
+	
+	@OneToMany(mappedBy = "player")
+	private List<Deck> decks = new ArrayList<>();
 	
 	// Default constructor must be 
 	// created when using this framework.
 	public Player() {
-//		decks = new ArrayList<>();
+
 	}
 	
 	public Player(Long id, String name) {
-//		decks = new ArrayList<>();
 		this.id = id;
 		this.name = name;
 	}
@@ -48,13 +52,9 @@ public class Player implements Serializable {
 		this.name = name;
 	}
 
-//	public List<Deck> getDecks() {
-//		return decks;
-//	}
-//
-//	public void setDecks(List<Deck> decks) {
-//		this.decks = decks;
-//	}
+	public List<Deck> getDecks() {
+		return decks;
+	}
 
 	@Override
 	public int hashCode() {

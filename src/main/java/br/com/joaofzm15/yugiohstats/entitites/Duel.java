@@ -4,19 +4,33 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.joaofzm15.yugiohstats.entitites.enums.OppDeck;
 
+@Entity
 public class Duel implements Serializable {
 	private static final long serialVersionUID = 8062344200862253875L;
-
+	
+	@Id
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
 	private boolean coinResult;
 	private boolean result;
-	private Deck deck;
 	private OppDeck oppDeck;
 	private int turns;
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "deck_id")
+	private Deck deck;
 	
 //	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy' 'HH:mm:ss' Z'", timezone = "GMT-3")
 	private Instant date;

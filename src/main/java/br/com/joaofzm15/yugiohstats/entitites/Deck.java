@@ -11,27 +11,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Deck implements Serializable {
 	private static final long serialVersionUID = 575045973018717512L;
 	
+	@Id
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
 	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "deck_owner_id")
 	private Player player;
 	
-	private List<Duel> duels;
+	@OneToMany(mappedBy = "deck")
+	private List<Duel> duels = new ArrayList<>();
 	
 	public Deck() {
-		duels = new ArrayList<>();
+		
 	}
 
 	public Deck(Long id, String name, Player player) {
 		this.id = id;
 		this.name = name;
 		this.player=player;
-		duels = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -50,14 +59,11 @@ public class Deck implements Serializable {
 		this.name = name;
 	}
 
+	@OneToMany(mappedBy = "player")
 	public List<Duel> getDuels() {
 		return duels;
 	}
 
-	public void setDuels(List<Duel> duels) {
-		this.duels = duels;
-	}
-	
 	public Player getPlayer() {
 		return player;
 	}
