@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.joaofzm15.yugiohstats.entitites.Deck;
+import br.com.joaofzm15.yugiohstats.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.repositories.DeckRepository;
 
 @Service
@@ -22,6 +23,10 @@ public class DeckService {
 	public Deck findById(Long id) {
 		Optional<Deck> obj = repository.findById(id);
 		return obj.get();
+	}
+	
+	public Deck insert (Deck obj) {
+		return repository.save(obj);
 	}
 
 }
