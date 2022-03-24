@@ -1,15 +1,20 @@
 package br.com.joaofzm15.yugiohstats.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.joaofzm15.yugiohstats.entitites.Duel;
+import br.com.joaofzm15.yugiohstats.entitites.Player;
 import br.com.joaofzm15.yugiohstats.services.DuelService;
 
 //RequestMapping value is the URL to access this
@@ -31,6 +36,13 @@ public class DuelResource {
 	public ResponseEntity<Duel> findById(@PathVariable Long id){
 		Duel obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Duel> insert(@RequestBody Duel obj){
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
 	}
 
 }
