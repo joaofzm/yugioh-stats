@@ -25,4 +25,7 @@ public class PlayerService {
 		return obj.get();
 	}
 
+	public Player insert (Player obj) {
+		return repository.save(obj);
+	}
 }
