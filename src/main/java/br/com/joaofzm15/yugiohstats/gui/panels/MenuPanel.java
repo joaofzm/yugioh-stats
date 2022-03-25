@@ -51,11 +51,11 @@ public class MenuPanel implements ActionListener {
 		viewDataButton.getJComponent().addActionListener(this);
 		panel.add(viewDataButton);
 		
-		logOutButton = new Button(860, 850, 200, 56, "LOG OUT",255,80,80);
+		logOutButton = new Button(930, 950, 200, 56, "LOG OUT",255,80,80);
 		logOutButton.getJComponent().addActionListener(this);
 		panel.add(logOutButton);
 
-		exitButton = new Button(908, 950, 104, 56, "EXIT",255,20,20);
+		exitButton = new Button(798, 950, 104, 56, "EXIT",255,20,20);
 		exitButton.getJComponent().addActionListener(this);
 		panel.add(exitButton);
 		
@@ -78,7 +78,11 @@ public class MenuPanel implements ActionListener {
 //		new Thread(new ClickSound()).start();
 
 		if (e.getSource() == addDuelButton.getJComponent()) {
-			System.out.println("start");
+			AddDuelPanel initialPanel = new AddDuelPanel(frame);
+			frame.getContentPane().removeAll();
+			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+			frame.revalidate();
+			initialPanel.getPanel().getJComponent().repaint();
 		}
 		
 		if (e.getSource() == addDeckButton.getJComponent()) {
