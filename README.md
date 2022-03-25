@@ -1,2 +1,2 @@
-# Yugioh - Stats
+# Yu-Gi-Oh! - Advanced Stats
 

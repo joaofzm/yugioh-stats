@@ -16,8 +16,16 @@ public class Button implements FrameComponent, MouseListener {
 	public JButton getJComponent() {
 		return button;
 	}
+	
+	private int red;
+	private int green;
+	private int blue;
 
 	public Button(double x, double y, double xSize, double ySize, String text, int red, int green, int blue) {
+		this.red = red;
+		this.green=green;
+		this.blue = blue;
+		
 		button = new JButton();
 		button.addMouseListener(this);
 		button.setBounds((int) (x * Config.multiplier), (int) (y * Config.multiplier),
@@ -25,7 +33,6 @@ public class Button implements FrameComponent, MouseListener {
 		button.setContentAreaFilled(false);
 		button.setText(text);
 		button.setForeground(new Color(red, green, blue));
-//		button.setFont(new Font("Visitor TT1 BRK", Font.PLAIN, (int) (62 * Config.multiplier)));
 		button.setFont(new Font("Impact", Font.PLAIN, (int) (62 * Config.multiplier)));
 		button.setFocusable(false);
 	
@@ -59,6 +66,6 @@ public class Button implements FrameComponent, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		button.setForeground(Color.WHITE);
+		button.setForeground(new Color(red,green,blue));
 	}
 }

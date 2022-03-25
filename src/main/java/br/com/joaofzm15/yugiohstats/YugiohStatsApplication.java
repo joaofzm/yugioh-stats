@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import br.com.joaofzm15.yugiohstats.gui.components.Frame;
 import br.com.joaofzm15.yugiohstats.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.gui.panels.LoginPanel;
 import br.com.joaofzm15.yugiohstats.gui.panels.MenuPanel;
 
 @SpringBootApplication
@@ -15,15 +16,15 @@ public class YugiohStatsApplication {
 		
 		Config.setMultiplier();
 		Frame frame = new Frame(Config.x, Config.y);
-		MenuPanel initialPanel = new MenuPanel(frame.getJFrame());
+		LoginPanel initialPanel = new LoginPanel(frame.getJFrame());
 		frame.getJFrame().getContentPane().removeAll();
 		frame.getJFrame().getContentPane().add(initialPanel.getPanel().getJComponent());
 		frame.getJFrame().revalidate();
 		initialPanel.getPanel().getJComponent().repaint();
 		
-		SpringApplicationBuilder builder = new SpringApplicationBuilder(YugiohStatsApplication.class);
-		builder.headless(false);
-		ConfigurableApplicationContext context = builder.run(args);
+//		SpringApplicationBuilder builder = new SpringApplicationBuilder(YugiohStatsApplication.class);
+//		builder.headless(false);
+//		ConfigurableApplicationContext context = builder.run(args);
 
 		
 
