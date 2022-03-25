@@ -22,16 +22,19 @@ public class Duel implements Serializable {
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
-	private boolean coinResult;
-	private boolean result;
-	private OppDeck oppDeck;
-	private int turns;
 	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "deck_id")
 	private Deck deck;
 	
+	private boolean coinResult;
+	private boolean first;
+	private boolean result;
+	private OppDeck oppDeck;
+	private int turns;
+	
+
 //	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy' 'HH:mm:ss' Z'", timezone = "GMT-3")
 	private Instant date;
 
@@ -39,9 +42,10 @@ public class Duel implements Serializable {
 
 	}
 
-	public Duel(Long id, boolean coinResult, boolean result, Deck deck, OppDeck oppDeck, int turns, Instant date) {
+	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant date) {
 		this.id = id;
 		this.coinResult = coinResult;
+		this.first=first;
 		this.result = result;
 		this.deck = deck;
 		this.oppDeck = oppDeck;
@@ -103,6 +107,14 @@ public class Duel implements Serializable {
 
 	public void setDate(Instant date) {
 		this.date = date;
+	}
+	
+	public boolean isFirst() {
+		return first;
+	}
+
+	public void setFirst(boolean first) {
+		this.first = first;
 	}
 
 	@Override

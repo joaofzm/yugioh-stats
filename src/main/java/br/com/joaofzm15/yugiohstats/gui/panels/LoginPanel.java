@@ -26,6 +26,7 @@ public class LoginPanel implements ActionListener {
 	private TextField passwordTextField;
 	
 	private Button loginButton;
+	private Button registerButton;
 	private Button exitButton;
 
 	private JFrame frame;
@@ -44,11 +45,15 @@ public class LoginPanel implements ActionListener {
 		passwordTextField.getJComponent().addActionListener(this);
 		panel.add(passwordTextField);
 		
-		loginButton = new Button(869, 750, 182, 56, "SIGN IN",20,255,20);
+		loginButton = new Button(869, 750, 182, 56, "SIGN IN",20,255,20,62);
 		loginButton.getJComponent().addActionListener(this);
 		panel.add(loginButton);
+		
+		registerButton = new Button(815, 850, 290, 56, "CREATE ACCOUNT",20,160,20,42);
+		registerButton.getJComponent().addActionListener(this);
+		panel.add(registerButton);
 
-		exitButton = new Button(908, 950, 104, 56, "EXIT",255,20,20);
+		exitButton = new Button(908, 950, 104, 56, "EXIT",255,20,20,62);
 		exitButton.getJComponent().addActionListener(this);
 		panel.add(exitButton);
 		
@@ -77,7 +82,11 @@ public class LoginPanel implements ActionListener {
 			frame.revalidate();
 			initialPanel.getPanel().getJComponent().repaint();
 		}
-
+		
+		if (e.getSource() == registerButton.getJComponent()) {
+			System.out.println("Create new account!");
+		}
+		
 		if (e.getSource() == exitButton.getJComponent()) {
 			try {
 				Thread.sleep(900);

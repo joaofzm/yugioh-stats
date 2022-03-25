@@ -25,6 +25,8 @@ public class MenuPanel implements ActionListener {
 	private Button addDeckButton;
 	private Button viewDataButton;
 	
+	private Label welcomeLabel;
+	
 	private Button logOutButton;
 	private Button exitButton;
 
@@ -36,26 +38,27 @@ public class MenuPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-//		logo = new Label(0, 120, 1920, 200, "VRAINS EVOLUTION",150,255,255,0);
-//		panel.add(logo);
-
-		addDuelButton = new Button(844, 450, 232, 56, "ADD DUEL",255,255,255);
+		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, Irvin!", 42, 255, 255, 255);
+		panel.add(welcomeLabel);
+		
+		logOutButton = new Button(160, 80, 200, 56, "LOG OUT",255,80,80,62);
+		logOutButton.getJComponent().addActionListener(this);
+		panel.add(logOutButton);
+		
+		
+		addDuelButton = new Button(844, 450, 232, 56, "ADD DUEL",255,255,255,62);
 		addDuelButton.getJComponent().addActionListener(this);
 		panel.add(addDuelButton);
 		
-		addDeckButton = new Button(839, 550, 242, 56, "ADD DECK",255,255,255);
+		addDeckButton = new Button(839, 550, 242, 56, "ADD DECK",255,255,255,62);
 		addDeckButton.getJComponent().addActionListener(this);
 		panel.add(addDeckButton);
 
-		viewDataButton = new Button(828, 650, 264, 56, "VIEW DATA",255,255,255);
+		viewDataButton = new Button(828, 650, 264, 56, "VIEW DATA",255,255,255,62);
 		viewDataButton.getJComponent().addActionListener(this);
 		panel.add(viewDataButton);
 		
-		logOutButton = new Button(930, 950, 200, 56, "LOG OUT",255,80,80);
-		logOutButton.getJComponent().addActionListener(this);
-		panel.add(logOutButton);
-
-		exitButton = new Button(798, 950, 104, 56, "EXIT",255,20,20);
+		exitButton = new Button(908, 950, 104, 56, "EXIT",255,20,20,62);
 		exitButton.getJComponent().addActionListener(this);
 		panel.add(exitButton);
 		

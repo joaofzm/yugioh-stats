@@ -21,7 +21,7 @@ public class Button implements FrameComponent, MouseListener {
 	private int green;
 	private int blue;
 
-	public Button(double x, double y, double xSize, double ySize, String text, int red, int green, int blue) {
+	public Button(double x, double y, double xSize, double ySize, String text, int red, int green, int blue, int fontSize) {
 		this.red = red;
 		this.green=green;
 		this.blue = blue;
@@ -33,7 +33,7 @@ public class Button implements FrameComponent, MouseListener {
 		button.setContentAreaFilled(false);
 		button.setText(text);
 		button.setForeground(new Color(red, green, blue));
-		button.setFont(new Font("Impact", Font.PLAIN, (int) (62 * Config.multiplier)));
+		button.setFont(new Font("Impact", Font.PLAIN, (int) (fontSize * Config.multiplier)));
 		button.setFocusable(false);
 	
 		button.setBorder(BorderFactory.createLineBorder(Color.white));

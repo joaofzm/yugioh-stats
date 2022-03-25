@@ -38,10 +38,10 @@ public class H2DataBasePopulator implements CommandLineRunner {
 		Deck d2 = new Deck(null, "Dragon Link", p2);
 		Deck d3 = new Deck(null, "Eldlitch", p1);
 		
-		Duel duel1 = new Duel(null, false, true, d1, OppDeck.DRYTRON, 5, Instant.parse("2020-07-22T15:21:22Z"));
-		Duel duel2 = new Duel(null, true, false, d1, OppDeck.CYBER_DRAGON, 2, Instant.parse("2020-07-22T18:41:12Z"));
-		Duel duel3 = new Duel(null, false, false, d2, OppDeck.CODE_TALKER, 3, Instant.parse("2020-07-23T16:12:12Z"));
-		Duel duel4 = new Duel(null, false, true, d3, OppDeck.ENDYMION, 12, Instant.parse("2020-07-24T16:22:42Z"));
+		Duel duel1 = new Duel(null,d1, false, false, true, OppDeck.DRYTRON, 2, Instant.parse("2020-07-23T16:22:12Z"));
+		Duel duel2 = new Duel(null,d2, false, false, true, OppDeck.ALTERGEIST, 8, Instant.parse("2020-07-24T15:21:22Z"));
+		Duel duel3 = new Duel(null,d3, false, false, true, OppDeck.ZOODIAC, 6, Instant.parse("2020-07-24T22:21:21Z"));
+		Duel duel4 = new Duel(null,d1, false, false, true, OppDeck.ELDLICH, 1, Instant.parse("2020-07-26T03:15:56Z"));
 		
 		playerRepository.saveAll(Arrays.asList(p1,p2));
 		deckRepository.saveAll(Arrays.asList(d1,d2,d3));
