@@ -37,11 +37,11 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		loginTextField = new TextField(828, 550, 264, 56, "                 username");
+		loginTextField = new TextField(828, 550, 264, 56, "                 username",28);
 		loginTextField.getJComponent().addActionListener(this);
 		panel.add(loginTextField);
 
-		passwordTextField = new TextField(828, 650, 264, 56, "                  password");
+		passwordTextField = new TextField(828, 650, 264, 56, "                  password",28);
 		passwordTextField.getJComponent().addActionListener(this);
 		panel.add(passwordTextField);
 		
@@ -59,10 +59,10 @@ public class LoginPanel implements ActionListener {
 		
 		bg = new JLabel();
 		
-		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/menubg1280x720.png"));
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/lockedmenubg1280x720.png"));
 		bg.setSize(1920,1080);
 		if (Config.res==2) {
-			icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/menubg1280x720.png"));
+			icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/lockedmenubg1280x720.png"));
 			bg.setSize(1280,720);
 		}
 		bg.setIcon(icon);

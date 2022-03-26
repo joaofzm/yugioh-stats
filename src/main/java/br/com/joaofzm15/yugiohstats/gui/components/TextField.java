@@ -21,7 +21,7 @@ public class TextField implements FrameComponent {
 	
 	private String placeHolderText;
 
-	public TextField(double x, double y, double xSize, double ySize, String placeHolderText) {
+	public TextField(double x, double y, double xSize, double ySize, String placeHolderText, int fontSize) {
 		this.placeHolderText = placeHolderText;
 		
 		textField = new JTextField();
@@ -29,7 +29,7 @@ public class TextField implements FrameComponent {
 				(int) (xSize * Config.multiplier), (int) (ySize * Config.multiplier));
 		textField.setText(placeHolderText);
 		textField.setForeground(new Color(140, 140, 140));
-		textField.setFont(new Font("Impact", Font.PLAIN, (int) (28 * Config.multiplier)));
+		textField.setFont(new Font("Impact", Font.PLAIN, (int) (fontSize * Config.multiplier)));
 		textField.setFocusable(true);
 	
 		textField.setBorder(BorderFactory.createLineBorder(Color.white));

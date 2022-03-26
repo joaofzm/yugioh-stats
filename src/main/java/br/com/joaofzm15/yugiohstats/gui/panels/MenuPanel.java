@@ -89,8 +89,11 @@ public class MenuPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == addDeckButton.getJComponent()) {
-			System.out.println("profile");
-		}
+			AddDecklPanel initialPanel = new AddDecklPanel(frame);
+			frame.getContentPane().removeAll();
+			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+			frame.revalidate();
+			initialPanel.getPanel().getJComponent().repaint();		}
 		
 		if (e.getSource() == viewDataButton.getJComponent()) {
 			System.out.println("view data");
