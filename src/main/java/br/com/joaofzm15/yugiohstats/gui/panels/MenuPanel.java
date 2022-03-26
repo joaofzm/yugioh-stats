@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import br.com.joaofzm15.yugiohstats.config.InMemoryData;
 import br.com.joaofzm15.yugiohstats.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.gui.components.Panel;
@@ -39,6 +40,8 @@ public class MenuPanel implements ActionListener {
 		panel = new Panel(1920,1080);
 		
 		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, Irvin!", 42, 255, 255, 255);
+//		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, "+InMemoryData.currentlyLoggedPlayer.getName()+
+//				"!", 42, 255, 255, 255);
 		panel.add(welcomeLabel);
 		
 		logOutButton = new Button(160, 80, 200, 56, "LOG OUT",255,80,80,62);

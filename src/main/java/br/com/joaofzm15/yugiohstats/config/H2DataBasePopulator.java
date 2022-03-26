@@ -28,6 +28,7 @@ public class H2DataBasePopulator implements CommandLineRunner {
 	
 	@Autowired
 	private DuelRepository duelRepository;
+	
 
 	@Override
 	public void run(String... args) throws Exception {

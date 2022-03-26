@@ -1,5 +1,6 @@
 package br.com.joaofzm15.yugiohstats.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +29,5 @@ public class PlayerService {
 	public Player insert (Player obj) {
 		return repository.save(obj);
 	}
+
 }

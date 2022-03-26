@@ -3,10 +3,12 @@ package br.com.joaofzm15.yugiohstats.gui.panels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import br.com.joaofzm15.yugiohstats.config.InMemoryData;
 import br.com.joaofzm15.yugiohstats.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.gui.components.Label;
