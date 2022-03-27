@@ -1,17 +1,15 @@
 package br.com.joaofzm15.yugiohstats;
 
-import javax.swing.JFrame;
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import br.com.joaofzm15.yugiohstats.gui.components.Frame;
-import br.com.joaofzm15.yugiohstats.gui.config.Config;
-import br.com.joaofzm15.yugiohstats.gui.panels.LoginPanel;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Frame;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginPanel;
 
 @SpringBootApplication
-public class YugiohStatsApplication extends JFrame {
+public class YugiohStatsApplication {
 
 	public static void main(String[] args) {
 		
