@@ -11,6 +11,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 
 public class MenuPanel implements ActionListener {
 
@@ -38,9 +39,7 @@ public class MenuPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, Irvin!", 42, 255, 255, 255);
-//		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, "+InMemoryData.currentlyLoggedPlayer.getName()+
-//				"!", 42, 255, 255, 255);
+		welcomeLabel = new Label(0, 0, 500, 100, "Welcome, "+FrontEndInMemoryData.currentlyLoggedPlayer.getName()+"!", 42, 255, 255, 255);
 		panel.add(welcomeLabel);
 		
 		logOutButton = new Button(160, 80, 200, 56, "LOG OUT",255,80,80,62);
@@ -103,6 +102,7 @@ public class MenuPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == logOutButton.getJComponent()) {
+			FrontEndInMemoryData.logOut();
 			LoginPanel initialPanel = new LoginPanel(frame);
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());

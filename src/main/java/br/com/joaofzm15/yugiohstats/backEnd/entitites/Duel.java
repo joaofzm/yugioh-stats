@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
@@ -34,9 +35,8 @@ public class Duel implements Serializable {
 	private OppDeck oppDeck;
 	private int turns;
 	
-
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy' 'HH:mm:ss' Z'", timezone = "GMT-3")
-	private Instant date;
+//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", shape = JsonFormat.Shape.STRING)
+//	private Instant date;
 
 	public Duel() {
 
@@ -50,7 +50,7 @@ public class Duel implements Serializable {
 		this.deck = deck;
 		this.oppDeck = oppDeck;
 		this.turns = turns;
-		this.date = date;
+//		this.date = date;
 	}
 
 	public Long getId() {
@@ -101,13 +101,13 @@ public class Duel implements Serializable {
 		this.turns = turns;
 	}
 	
-	public Instant getDate() {
-		return date;
-	}
-
-	public void setDate(Instant date) {
-		this.date = date;
-	}
+//	public Instant getDate() {
+//		return date;
+//	}
+//
+//	public void setDate(Instant date) {
+//		this.date = date;
+//	}
 	
 	public boolean isFirst() {
 		return first;

@@ -2,12 +2,14 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.CheckBox;
@@ -15,6 +17,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 
 public class AddDuelPanel implements ActionListener {
 
@@ -55,9 +58,12 @@ public class AddDuelPanel implements ActionListener {
 		panel = new Panel(1920,1080);
 		
 		deckComboBox = new ComboBox(120, 455, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
-		OppDeck[] items2 = OppDeck.values();
-		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(items2));
+
+		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(decksList.toArray()));
+	
 		panel.add(deckComboBox);
+		
 		
 		duelWBox = new CheckBox(570, 400, 100, 100, "W", 255, 255, 255, 50,255,50, 50);
 		duelWBox.getJComponent().addActionListener(this);

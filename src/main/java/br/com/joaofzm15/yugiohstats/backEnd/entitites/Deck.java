@@ -88,6 +88,11 @@ public class Deck implements Serializable {
 		Deck other = (Deck) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 	
 	

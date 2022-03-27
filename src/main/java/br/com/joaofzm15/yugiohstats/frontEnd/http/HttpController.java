@@ -10,6 +10,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 
 public class HttpController {
@@ -37,4 +38,5 @@ public class HttpController {
 		}
 		return players;
 	}
+	
 }

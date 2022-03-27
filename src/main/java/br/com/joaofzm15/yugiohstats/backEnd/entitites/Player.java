@@ -73,7 +73,7 @@ public class Player implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "{PLAYER: ["+name+"]"+"[id: "+id+"]}";
+		return "{PLAYER: ["+name+"]"+"[id: "+id+"]" + decks+"}";
 	}
 	
 	
