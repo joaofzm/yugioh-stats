@@ -2,18 +2,27 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import br.com.joaofzm15.yugiohstats.backEnd.config.H2DataBasePopulator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
 
 public class LoginPanel implements ActionListener {
 
@@ -76,14 +85,18 @@ public class LoginPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == loginButton.getJComponent()) {
-			String name = usernameTextField.getJComponent().getText();
-			Player p = new Player(1L, name);
-			
-			MenuPanel initialPanel = new MenuPanel(frame);
-			frame.getContentPane().removeAll();
-			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
-			frame.revalidate();
-			initialPanel.getPanel().getJComponent().repaint();
+			// HTTP Request
+			HttpResponse<String> response = HttpController.getUrl("http://localhost:8080/players/");
+			List<Player> list = HttpController.parseJsonIntoPlayer(response);
+	        
+//			String name = usernameTextField.getJComponent().getText();
+//			Player p = new Player(1L, name);
+//			
+//			MenuPanel initialPanel = new MenuPanel(frame);
+//			frame.getContentPane().removeAll();
+//			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+//			frame.revalidate();
+//			initialPanel.getPanel().getJComponent().repaint();
 		}
 		
 		if (e.getSource() == registerButton.getJComponent()) {

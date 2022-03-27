@@ -71,7 +71,10 @@ public class Player implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "{PLAYER: ["+name+"]"+"[id: "+id+"]}";
+	}
 	
 	
 
