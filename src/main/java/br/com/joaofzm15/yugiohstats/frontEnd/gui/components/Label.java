@@ -22,9 +22,10 @@ public class Label implements FrameComponent {
 		Image originalImage = originalIcon.getImage();
 		Image resizedImage = originalImage.getScaledInstance((int)(xSize*Config.multiplier),(int) (ySize*Config.multiplier),  java.awt.Image.SCALE_SMOOTH); 
 		ImageIcon icon = new ImageIcon(resizedImage);
+		
 		label.setIcon(icon);
-		label.setBounds((int) (x * Config.multiplier), (int) (y * Config.multiplier), (int) (xSize * Config.multiplier),
-				(int) (ySize * Config.multiplier));
+		label.setBounds((int) (x * Config.multiplier), (int) (y * Config.multiplier), (int) (xSize * Config.multiplier),(int) (ySize * Config.multiplier));
+//		label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
 	}
 
 	public Label(double x, double y, double xSize, double ySize, String text, int fontSize, int red, int green, int blue) {

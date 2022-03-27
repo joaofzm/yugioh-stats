@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Frame;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginLoadingPanel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginPanel;
 
 @SpringBootApplication
@@ -13,18 +14,23 @@ public class YugiohStatsApplication {
 
 	public static void main(String[] args) {
 		
-		SpringApplicationBuilder builder = new SpringApplicationBuilder(YugiohStatsApplication.class);
-		builder.headless(false);
-		ConfigurableApplicationContext context = builder.run(args);
-		
 		Config.setMultiplier();
 		Frame frame = new Frame(Config.x, Config.y);
-		LoginPanel initialPanel = new LoginPanel(frame.getJFrame());
+		LoginLoadingPanel initialPanel = new LoginLoadingPanel(frame.getJFrame());
 		frame.getJFrame().getContentPane().removeAll();
 		frame.getJFrame().getContentPane().add(initialPanel.getPanel().getJComponent());
 		frame.getJFrame().revalidate();
 		initialPanel.getPanel().getJComponent().repaint();
+		
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(YugiohStatsApplication.class);
+		builder.headless(false);
+		ConfigurableApplicationContext context = builder.run(args);
 
+		LoginPanel secondPanel = new LoginPanel(frame.getJFrame());
+		frame.getJFrame().getContentPane().removeAll();
+		frame.getJFrame().getContentPane().add(secondPanel.getPanel().getJComponent());
+		frame.getJFrame().revalidate();
+		secondPanel.getPanel().getJComponent().repaint();
 	}
 
 }
