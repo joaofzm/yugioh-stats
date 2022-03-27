@@ -16,6 +16,24 @@ public class Frame {
 	public JFrame getJFrame() {
 		return frame;
 	}
+	
+	public Frame() {
+		frame.setContentPane(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/bg1280x720.png"))));
+
+		frame.setMinimumSize(new Dimension(1280, 720));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setUndecorated(Config.borderless);
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+		ImageIcon windowIcon = new ImageIcon(getClass().getClassLoader().getResource("windowIcon.jpg"));
+		frame.setIconImage(windowIcon.getImage());
+		frame.setTitle("Yu-Gi-Oh! - Advanced Stats");
+		frame.setResizable(false);
+		frame.pack();
+		frame.setVisible(true);
+
+		frame.getContentPane().setBackground(Color.black);
+	}
 
 	public Frame(int x, int y) {
 		frame = new JFrame();

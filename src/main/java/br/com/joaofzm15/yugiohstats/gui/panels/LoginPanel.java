@@ -3,17 +3,22 @@ package br.com.joaofzm15.yugiohstats.gui.panels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import br.com.joaofzm15.yugiohstats.config.InMemoryData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import br.com.joaofzm15.yugiohstats.entitites.Player;
 import br.com.joaofzm15.yugiohstats.gui.components.Button;
-import br.com.joaofzm15.yugiohstats.gui.components.TextField;
-import br.com.joaofzm15.yugiohstats.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.gui.components.Panel;
+import br.com.joaofzm15.yugiohstats.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.repositories.PlayerRepository;
 
 public class LoginPanel implements ActionListener {
 
@@ -24,7 +29,7 @@ public class LoginPanel implements ActionListener {
 	
 	private JLabel bg;
 	
-	private TextField loginTextField;
+	private TextField usernameTextField;
 	private TextField passwordTextField;
 	
 	private Button loginButton;
@@ -39,9 +44,9 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		loginTextField = new TextField(828, 550, 264, 56, "                 username",28);
-		loginTextField.getJComponent().addActionListener(this);
-		panel.add(loginTextField);
+		usernameTextField = new TextField(828, 550, 264, 56, "                 username",28);
+		usernameTextField.getJComponent().addActionListener(this);
+		panel.add(usernameTextField);
 
 		passwordTextField = new TextField(828, 650, 264, 56, "                  password",28);
 		passwordTextField.getJComponent().addActionListener(this);
@@ -74,8 +79,6 @@ public class LoginPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-//		new Thread(new ClickSound()).start();
 
 		if (e.getSource() == loginButton.getJComponent()) {
 			MenuPanel initialPanel = new MenuPanel(frame);

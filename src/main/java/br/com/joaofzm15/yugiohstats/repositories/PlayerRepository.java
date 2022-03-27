@@ -10,7 +10,6 @@ import br.com.joaofzm15.yugiohstats.entitites.Player;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-	
 	public default Player findByName(String name) {
 		List<Player> list;
 		list = findAll();
@@ -21,4 +20,5 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 		}
 		return null;
 	}
+	
 }
