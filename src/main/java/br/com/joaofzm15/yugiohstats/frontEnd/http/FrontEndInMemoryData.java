@@ -11,7 +11,7 @@ public class FrontEndInMemoryData {
 	public static Player currentlyLoggedPlayer;
 	
 	public static Player logIn(String username) {
-		HttpResponse<String> response = HttpController.getUrl("http://localhost:8080/players/");
+		HttpResponse<String> response = HttpController.getHttpResponseFromUrl("http://localhost:8080/players/");
 		List<Player> list = HttpController.parseJsonIntoPlayer(response);
 		
 		for (Player player : list) {

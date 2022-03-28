@@ -63,6 +63,10 @@ public class Deck implements Serializable {
 	public List<Duel> getDuels() {
 		return duels;
 	}
+	
+	public void setDuels(List<Duel> duels) {
+		this.duels = duels;
+	}
 
 	public Player getPlayer() {
 		return player;

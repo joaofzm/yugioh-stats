@@ -2,19 +2,23 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;import org.springframework.web.HttpMediaTypeException;
 
-import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
-import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.CheckBox;
-import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
 
 public class AddDecklPanel implements ActionListener {
 
@@ -26,7 +30,7 @@ public class AddDecklPanel implements ActionListener {
 	private JLabel bg;
 	
 	
-	private TextField turnsTextField;
+	private TextField deckNameTextField;
 	
 	private Button addDeckButton;
 	
@@ -42,8 +46,8 @@ public class AddDecklPanel implements ActionListener {
 		panel = new Panel(1920,1080);
 		
 		
-		turnsTextField = new TextField(810, 560, 280, 80, "DECK NAME",28);
-		panel.add(turnsTextField);
+		deckNameTextField = new TextField(810, 560, 280, 80, "DECK NAME",28);
+		panel.add(deckNameTextField);
 		
 		addDeckButton = new Button(900, 720, 120, 56, "ADD", 50, 255, 50, 70);
 		addDeckButton.getJComponent().addActionListener(this);
@@ -70,7 +74,7 @@ public class AddDecklPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == addDeckButton.getJComponent()) {
-			System.out.println("add");
+				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText()  + " \"}","http://localhost:8080/decks");
 		}
 
 		if (e.getSource() == exitButton.getJComponent()) {
