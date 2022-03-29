@@ -2,16 +2,12 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;import org.springframework.web.HttpMediaTypeException;
+import javax.swing.JOptionPane;
 
-import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
@@ -20,50 +16,53 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
 
-public class AddDecklPanel implements ActionListener {
+public class RegisterAccountPanel implements ActionListener {
 
 	private Panel panel;
+
 	public Panel getPanel() {
 		return panel;
 	}
-	
+
 	private JLabel bg;
-	
-	
-	private TextField deckNameTextField;
-	
-	private Button addDeckButton;
-	
+
+	private TextField usernameTextField;
+	private TextField passwordTextField;
+
+	private Button registerButton;
 	private Button returnButton;
-	
 
 	private JFrame frame;
-	
-	public AddDecklPanel(JFrame frame) {
-		
-		this.frame=frame;
 
-		panel = new Panel(1920,1080);
-		
-		
-		deckNameTextField = new TextField(810, 560, 280, 80, "DECK NAME",28);
-		panel.add(deckNameTextField);
-		
-		addDeckButton = new Button(900, 720, 120, 56, "ADD", 50, 255, 50, 70);
-		addDeckButton.getJComponent().addActionListener(this);
-		panel.add(addDeckButton);
+	public RegisterAccountPanel(JFrame frame) {
 
-		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
+		this.frame = frame;
+
+		panel = new Panel(1920, 1080);
+
+		usernameTextField = new TextField(828, 450, 264, 56, "                 username", 28);
+		usernameTextField.getJComponent().addActionListener(this);
+		panel.add(usernameTextField);
+
+		passwordTextField = new TextField(828, 550, 264, 56, "                  password", 28);
+		passwordTextField.getJComponent().addActionListener(this);
+		panel.add(passwordTextField);
+
+		registerButton = new Button(815, 650, 290, 56, "CREATE", 20, 160, 20, 42);
+		registerButton.getJComponent().addActionListener(this);
+		panel.add(registerButton);
+
+		returnButton = new Button(865, 950, 190, 56, "RETURN", 255, 20, 20, 62);
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
-		
+
 		bg = new JLabel();
-		
+
 		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/bg1280x720.png"));
-		bg.setSize(1920,1080);
-		if (Config.res==2) {
+		bg.setSize(1920, 1080);
+		if (Config.res == 2) {
 			icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/bg1280x720.png"));
-			bg.setSize(1280,720);
+			bg.setSize(1280, 720);
 		}
 		bg.setIcon(icon);
 		panel.getJComponent().add(bg);
@@ -72,20 +71,19 @@ public class AddDecklPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource() == addDeckButton.getJComponent()) {
-			if (deckNameTextField.getJComponent().getText().equals("DECK NAME")) {
-				JOptionPane.showMessageDialog(null, "ERROR! Please type the deck name!");
+
+		if (e.getSource() == registerButton.getJComponent()) {
+			if (usernameTextField.getJComponent().getText().equals("                 username")) {
+				JOptionPane.showMessageDialog(null, "ERROR! Please type an username!");
 			} else {
-				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
-						,"http://localhost:8080/decks");
-				JOptionPane.showMessageDialog(null, "Deck added sucesfully!");
-				FrontEndInMemoryData.updateLoggedPlayerData();
+				HttpController.post("{\"name\": \"" + usernameTextField.getJComponent().getText() + "\"}}",
+						"http://localhost:8080/players");
+				JOptionPane.showMessageDialog(null, "Account created!");
 			}
 		}
-		
+
 		if (e.getSource() == returnButton.getJComponent()) {
-			MenuPanel initialPanel = new MenuPanel(frame);
+			LoginPanel initialPanel = new LoginPanel(frame);
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 			frame.revalidate();

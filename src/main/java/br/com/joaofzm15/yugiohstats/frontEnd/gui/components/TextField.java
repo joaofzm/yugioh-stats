@@ -50,7 +50,12 @@ public class TextField implements FrameComponent {
 			}
 		});
 	}
-
+	
+	public void resetToPlaceHolder() {
+		textField.setText(placeHolderText);
+		textField.setForeground(new Color(140, 140, 140));
+	}
+	
 	public void setVisible(boolean value) {
 		getJComponent().setVisible(value);
 	}

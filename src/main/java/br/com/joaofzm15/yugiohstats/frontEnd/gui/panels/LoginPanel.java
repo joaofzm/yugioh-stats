@@ -40,8 +40,8 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920, 1080);
 
-//		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
-		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
+		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
+//		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
 
@@ -86,15 +86,17 @@ public class LoginPanel implements ActionListener {
 				frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 				frame.revalidate();
 				initialPanel.getPanel().getJComponent().repaint();
-				
-				System.out.println(FrontEndInMemoryData.currentlyLoggedPlayer);
 			} else {
 				JOptionPane.showMessageDialog(null, "Username not found!");
 			}
 		}
 
 		if (e.getSource() == registerButton.getJComponent()) {
-			System.out.println("Create new account!");
+			RegisterAccountPanel initialPanel = new RegisterAccountPanel(frame);
+			frame.getContentPane().removeAll();
+			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+			frame.revalidate();
+			initialPanel.getPanel().getJComponent().repaint();
 		}
 
 		if (e.getSource() == exitButton.getJComponent()) {

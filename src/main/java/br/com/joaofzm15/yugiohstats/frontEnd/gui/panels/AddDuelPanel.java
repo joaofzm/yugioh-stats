@@ -118,7 +118,19 @@ public class AddDuelPanel implements ActionListener {
 
 	}
 
-	public boolean getInputFromTwoBoxes(CheckBox trueOutcome, CheckBox falseOutcome) {
+	private void resetInputs() {
+//		deckComboBox.getJComponent().setSelectedItem(0);
+		duelWBox.getJComponent().setSelected(false);
+		duelLBox.getJComponent().setSelected(false);
+		coinWBox.getJComponent().setSelected(false);
+		coinLBox.getJComponent().setSelected(false);
+		firstBox.getJComponent().setSelected(false);
+		secondBox.getJComponent().setSelected(false);
+		turnsTextField.resetToPlaceHolder();
+		oppDecKComboBox.getJComponent().setSelectedIndex(0);
+	}
+	
+	private boolean getInputFromTwoBoxes(CheckBox trueOutcome, CheckBox falseOutcome) {
 		if (trueOutcome.getJComponent().isSelected()) {
 			return true;
 		} else if (falseOutcome.getJComponent().isSelected()) {
@@ -128,7 +140,7 @@ public class AddDuelPanel implements ActionListener {
 		}
 	}
 	
-	public String getTurnsAndValidadeIt() {
+	private String getTurnsAndValidadeIt() {
 		Integer turnsParsedToInt = 0;
 		try {
 			turnsParsedToInt = Integer.valueOf(turnsTextField.getJComponent().getText());
@@ -146,7 +158,7 @@ public class AddDuelPanel implements ActionListener {
 //		}
 	}
 	
-	public Integer getDeckIdFromComboBox() {
+	private Integer getDeckIdFromComboBox() {
 		String selectedDeckName = deckComboBox.getJComponent().getSelectedItem().toString();
 		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
 		for (Deck deck : decksList) {
@@ -158,7 +170,7 @@ public class AddDuelPanel implements ActionListener {
 		return null;
 	}
 	
-	public Integer getOppDeckIdFromComboBox() {
+	private Integer getOppDeckIdFromComboBox() {
 		int selectedDeckIndex = oppDecKComboBox.getJComponent().getSelectedIndex();
 		if (selectedDeckIndex==0) {
 			throw new FieldInputMismatchException("Please, pick the opponent deck!");
@@ -170,8 +182,14 @@ public class AddDuelPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == addDuelButton.getJComponent()) {
+			
 			try {
-				String deck = deckComboBox.getJComponent().getSelectedItem().toString();
+				try {
+					String deck = deckComboBox.getJComponent().getSelectedItem().toString();
+				} catch (NullPointerException e4) {
+					JOptionPane.showMessageDialog(null, "You must pick a deck! Register one first if you don't have any!");
+				}
+				
 				HttpController.post("{"
 						+ "        \"coinResult\": "+ getInputFromTwoBoxes(coinWBox, coinLBox) +","
 						+ "        \"first\":" + getInputFromTwoBoxes(firstBox, secondBox) +","
@@ -184,11 +202,14 @@ public class AddDuelPanel implements ActionListener {
 						+ "    }"
 						,"http://localhost:8080/duels");
 				JOptionPane.showMessageDialog(null, "Duel added sucesfully!!");
+				resetInputs();
 				FrontEndInMemoryData.updateLoggedPlayerData();
 			} catch (BlankFieldException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			} catch (FieldInputMismatchException e2) {
 				JOptionPane.showMessageDialog(null, e2.getMessage());
+			} catch (NullPointerException e3) {
+				//Treated above
 			}
 		}
 		
