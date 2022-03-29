@@ -8,9 +8,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
+import br.com.joaofzm15.yugiohstats.frontEnd.exceptions.BlankFieldException;
+import br.com.joaofzm15.yugiohstats.frontEnd.exceptions.TextFieldInputMismatchException;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.CheckBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
@@ -18,6 +21,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
+import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
 
 public class AddDuelPanel implements ActionListener {
 
@@ -46,7 +50,7 @@ public class AddDuelPanel implements ActionListener {
 	
 	private Button addDuelButton;
 	
-	private Button exitButton;
+	private Button returnButton;
 	
 
 	private JFrame frame;
@@ -99,9 +103,9 @@ public class AddDuelPanel implements ActionListener {
 		addDuelButton.getJComponent().addActionListener(this);
 		panel.add(addDuelButton);
 
-		exitButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
-		exitButton.getJComponent().addActionListener(this);
-		panel.add(exitButton);
+		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
+		returnButton.getJComponent().addActionListener(this);
+		panel.add(returnButton);
 		
 		bg = new JLabel();
 		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/bg1280x720.png"));
@@ -115,6 +119,33 @@ public class AddDuelPanel implements ActionListener {
 
 	}
 
+	public boolean getInputFromTwoBoxes(CheckBox trueOutcome, CheckBox falseOutcome) {
+		if (trueOutcome.getJComponent().isSelected()) {
+			return true;
+		} else if (falseOutcome.getJComponent().isSelected()) {
+			return false;
+		} else {
+			throw new BlankFieldException("Please pick an option in all fields!");
+		}
+	}
+	
+	public String getTurnsAndValidadeIt() {
+		Integer turnsParsedToInt = 0;
+		try {
+			turnsParsedToInt = Integer.valueOf(turnsTextField.getJComponent().getText());
+		} catch (NumberFormatException e) {
+			throw new TextFieldInputMismatchException("Input doesn't match requirements!");
+		}
+		
+		if (turnsParsedToInt!=0) {
+			return String.valueOf(turnsParsedToInt);
+		} else {
+			throw new BlankFieldException("Please pick an option in all fields!");
+		}
+	}
+	
+//	public boolean
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -128,8 +159,6 @@ public class AddDuelPanel implements ActionListener {
 				duelWBox.getJComponent().setSelected(false);
 			} 
 		}
-		
-		
 		if (e.getSource()== coinWBox.getJComponent()) {
 			if (coinLBox.getJComponent().isSelected()) {
 				coinLBox.getJComponent().setSelected(false);
@@ -140,8 +169,6 @@ public class AddDuelPanel implements ActionListener {
 				coinWBox.getJComponent().setSelected(false);
 			} 
 		}
-		
-		
 		if (e.getSource()== firstBox.getJComponent()) {
 			if (secondBox.getJComponent().isSelected()) {
 				secondBox.getJComponent().setSelected(false);
@@ -154,11 +181,28 @@ public class AddDuelPanel implements ActionListener {
 		}
 		
 		
-		
 		if (e.getSource() == addDuelButton.getJComponent()) {
-			System.out.println("add");
+			try {
+				HttpController.post("{"
+						+ "        \"coinResult\": "+ getInputFromTwoBoxes(coinWBox, coinLBox) +","
+						+ "        \"first\":" + getInputFromTwoBoxes(firstBox, secondBox) +","
+						+ "        \"result\": " + getInputFromTwoBoxes(duelWBox, duelLBox) +","
+						+ "        \"turns\": " + getTurnsAndValidadeIt() + ","
+						+ "        \"deck\":{"
+						+ "            \"id\":1"
+						+ "        },"
+						+ "        \"oppDeck\": 16"
+						+ "    }"
+						,"http://localhost:8080/duels");
+				JOptionPane.showMessageDialog(null, "Duel added sucesfully!!");
+			} catch (BlankFieldException e1) {
+				JOptionPane.showMessageDialog(null, "ERROR! Please fill in all fields!");
+			} catch (TextFieldInputMismatchException e2) {
+				JOptionPane.showMessageDialog(null, "ERROR! Turns must be a number!");
+			}
 		}
-		if (e.getSource() == exitButton.getJComponent()) {
+		
+		if (e.getSource() == returnButton.getJComponent()) {
 			MenuPanel initialPanel = new MenuPanel(frame);
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());

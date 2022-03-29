@@ -74,11 +74,15 @@ public class AddDecklPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == addDeckButton.getJComponent()) {
-			HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
-					,"http://localhost:8080/decks");
-
+			if (deckNameTextField.getJComponent().getText().equals("DECK NAME")) {
+				JOptionPane.showMessageDialog(null, "ERROR! Please type the deck name!");
+			} else {
+				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
+						,"http://localhost:8080/decks");
+				JOptionPane.showMessageDialog(null, "Deck added sucesfully!");
+			}
 		}
-
+		
 		if (e.getSource() == exitButton.getJComponent()) {
 			MenuPanel initialPanel = new MenuPanel(frame);
 			frame.getContentPane().removeAll();
