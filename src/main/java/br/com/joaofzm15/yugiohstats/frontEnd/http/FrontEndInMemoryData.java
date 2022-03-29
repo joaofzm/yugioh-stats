@@ -23,6 +23,12 @@ public class FrontEndInMemoryData {
 		return null;
 	}
 	
+	public static void updateLoggedPlayerData() {
+		String name = currentlyLoggedPlayer.getName();
+		logOut();
+		logIn(name);
+	}
+	
 	public static void logOut() {
 		currentlyLoggedPlayer=null;
 	}

@@ -80,6 +80,7 @@ public class AddDecklPanel implements ActionListener {
 				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
 						,"http://localhost:8080/decks");
 				JOptionPane.showMessageDialog(null, "Deck added sucesfully!");
+				FrontEndInMemoryData.updateLoggedPlayerData();
 			}
 		}
 		
