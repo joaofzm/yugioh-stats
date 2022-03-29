@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;import org.springframework.web.HttpMediaTypeExcep
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
@@ -29,6 +30,7 @@ public class AddDecklPanel implements ActionListener {
 	
 	private JLabel bg;
 	
+	private Label title;
 	
 	private TextField deckNameTextField;
 	
@@ -45,7 +47,9 @@ public class AddDecklPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		
+		title = new Label(0, 170, 1920, 130, "ADD DECK", 130, 200, 200, 255);
+		panel.add(title);
+
 		deckNameTextField = new TextField(810, 560, 280, 80, "DECK NAME",28);
 		panel.add(deckNameTextField);
 		

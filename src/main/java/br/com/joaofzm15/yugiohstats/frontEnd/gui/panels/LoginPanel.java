@@ -40,8 +40,8 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920, 1080);
 
-		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
-//		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
+//		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
+		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
 

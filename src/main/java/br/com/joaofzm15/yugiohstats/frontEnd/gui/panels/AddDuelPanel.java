@@ -17,6 +17,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.exceptions.FieldInputMismatchExcept
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.CheckBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
@@ -52,6 +53,7 @@ public class AddDuelPanel implements ActionListener {
 	
 	private Button returnButton;
 	
+	private Label title;
 
 	private JFrame frame;
 	
@@ -60,6 +62,9 @@ public class AddDuelPanel implements ActionListener {
 		this.frame=frame;
 
 		panel = new Panel(1920,1080);
+		
+		title = new Label(0, 170, 1920, 130, "ADD DUEL", 130, 200, 200, 255);
+		panel.add(title);
 		
 		deckComboBox = new ComboBox(120, 455, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
 

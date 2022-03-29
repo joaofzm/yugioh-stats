@@ -9,8 +9,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Frame;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.AddDecklPanel;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.AddDuelPanel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginLoadingPanel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginPanel;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.RegisterAccountPanel;
 
 @SpringBootApplication
 public class YugiohStatsApplication {

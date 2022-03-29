@@ -2,14 +2,19 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.http.HttpResponse;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import org.springframework.http.ResponseEntity;
+
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
@@ -32,6 +37,8 @@ public class RegisterAccountPanel implements ActionListener {
 	private Button registerButton;
 	private Button returnButton;
 
+	private Label title;
+
 	private JFrame frame;
 
 	public RegisterAccountPanel(JFrame frame) {
@@ -40,6 +47,9 @@ public class RegisterAccountPanel implements ActionListener {
 
 		panel = new Panel(1920, 1080);
 
+		title = new Label(0, 170, 1920, 130, "REGISTER ACCOUNT", 130, 200, 200, 255);
+		panel.add(title);
+		
 		usernameTextField = new TextField(828, 450, 264, 56, "                 username", 28);
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
@@ -73,12 +83,33 @@ public class RegisterAccountPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == registerButton.getJComponent()) {
-			if (usernameTextField.getJComponent().getText().equals("                 username")) {
-				JOptionPane.showMessageDialog(null, "ERROR! Please type an username!");
-			} else {
-				HttpController.post("{\"name\": \"" + usernameTextField.getJComponent().getText() + "\"}}",
-						"http://localhost:8080/players");
-				JOptionPane.showMessageDialog(null, "Account created!");
+			HttpResponse<String> response = HttpController.getHttpResponseFromUrl("http://localhost:8080/players");
+			List<Player> listOfUserNames = HttpController.parseJsonIntoPlayer(response);
+			
+			boolean repeated = false;
+			
+			for (Player player : listOfUserNames) {
+				if (usernameTextField.getJComponent().getText().equals(player.getName())) {
+					JOptionPane.showMessageDialog(null, "Username already in use! Please choose another one!");
+					repeated=true;
+					break;
+				}
+			} 
+			if (!repeated) {
+				if (usernameTextField.getJComponent().getText().equals("                 username")) {
+					JOptionPane.showMessageDialog(null, "ERROR! Please type an username!");
+				} else {
+					HttpController.post("{\"name\": \"" + usernameTextField.getJComponent().getText() + "\"}}",
+							"http://localhost:8080/players");
+					JOptionPane.showMessageDialog(null, "Account created!");
+					
+					LoginPanel initialPanel = new LoginPanel(frame);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+					frame.revalidate();
+					initialPanel.getPanel().getJComponent().repaint();
+					
+				}
 			}
 		}
 
