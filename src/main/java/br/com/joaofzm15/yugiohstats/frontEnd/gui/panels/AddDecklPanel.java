@@ -74,7 +74,9 @@ public class AddDecklPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == addDeckButton.getJComponent()) {
-				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText()  + " \"}","http://localhost:8080/decks");
+			HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
+					,"http://localhost:8080/decks");
+
 		}
 
 		if (e.getSource() == exitButton.getJComponent()) {

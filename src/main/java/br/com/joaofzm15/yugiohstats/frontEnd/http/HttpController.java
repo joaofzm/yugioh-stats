@@ -39,7 +39,6 @@ public class HttpController {
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(BodyPublishers.ofString(body))
                 .uri(URI.create(url))
-//                .headers("Accept", "application/xml")
                 .header("Content-Type", "application/json")
                 .timeout(Duration.ofSeconds(3))
                 .build();
