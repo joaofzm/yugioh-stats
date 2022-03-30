@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
 
@@ -36,14 +35,15 @@ public class Duel implements Serializable {
 	private OppDeck oppDeck;
 	private int turns;
 	
-//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", shape = JsonFormat.Shape.STRING)
-//	private Instant date;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", shape = JsonFormat.Shape.STRING)
+//	 @JsonSerialize(using = LocalDateTimeSerializer.class)
+	private Instant moment;
 
 	public Duel() {
 
 	}
 
-	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant date) {
+	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant moment) {
 		this.id = id;
 		this.coinResult = coinResult;
 		this.first=first;
@@ -51,7 +51,7 @@ public class Duel implements Serializable {
 		this.deck = deck;
 		this.oppDeck = oppDeck;
 		this.turns = turns;
-//		this.date = date;
+		this.moment = moment;
 	}
 
 	public Long getId() {
@@ -102,13 +102,13 @@ public class Duel implements Serializable {
 		this.turns = turns;
 	}
 	
-//	public Instant getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(Instant date) {
-//		this.date = date;
-//	}
+	public Instant getMoment() {
+		return moment;
+	}
+
+	public void setMoment(Instant date) {
+		this.moment = date;
+	}
 	
 	public boolean isFirst() {
 		return first;

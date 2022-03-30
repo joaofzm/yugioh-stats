@@ -23,7 +23,6 @@ public class Player implements Serializable {
 	private String password;
 	
 	@OneToMany(mappedBy = "player")
-//	@JsonIgnore
 	private List<Deck> decks = new ArrayList<>();
 	
 	// Default constructor must be 

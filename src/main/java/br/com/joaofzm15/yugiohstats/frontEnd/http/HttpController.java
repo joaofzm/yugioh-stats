@@ -16,12 +16,14 @@ import java.util.concurrent.TimeoutException;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 
 public class HttpController {
+	
 
 	public static HttpResponse<String> getHttpResponseFromUrl(String url) {
 		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).timeout(Duration.ofSeconds(3)).build();
@@ -61,6 +63,7 @@ public class HttpController {
 
 	public static List<Player> parseJsonIntoPlayer(HttpResponse<String> response) {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
 		List<Player> players = null;
         try {
 			players = mapper.readValue(response.body(), new TypeReference<List<Player>>() {});

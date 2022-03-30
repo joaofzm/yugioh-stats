@@ -1,11 +1,17 @@
 package br.com.joaofzm15.yugiohstats;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Frame;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
@@ -16,7 +22,9 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.LoginPanel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.RegisterAccountPanel;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 public class YugiohStatsApplication {
+	
 
 	public static void main(String[] args) {
 		
@@ -38,8 +46,6 @@ public class YugiohStatsApplication {
 		frame.getJFrame().getContentPane().add(secondPanel.getPanel().getJComponent());
 		frame.getJFrame().revalidate();
 		secondPanel.getPanel().getJComponent().repaint();
-
-
 	}
 
 }

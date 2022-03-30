@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -50,10 +51,10 @@ public class AddDecklPanel implements ActionListener {
 		title = new Label(0, 170, 1920, 130, "ADD DECK", 130, 200, 200, 255);
 		panel.add(title);
 
-		deckNameTextField = new TextField(810, 560, 280, 80, "DECK NAME",28);
+		deckNameTextField = new TextField(840, 460, 280, 80, "DECK NAME",28);
 		panel.add(deckNameTextField);
 		
-		addDeckButton = new Button(900, 720, 120, 56, "ADD", 50, 255, 50, 70);
+		addDeckButton = new Button(900, 650, 120, 56, "ADD", 50, 255, 50, 70);
 		addDeckButton.getJComponent().addActionListener(this);
 		panel.add(addDeckButton);
 
@@ -76,15 +77,26 @@ public class AddDecklPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		if (e.getSource() == addDeckButton.getJComponent()) {
-			if (deckNameTextField.getJComponent().getText().equals("DECK NAME")) {
-				JOptionPane.showMessageDialog(null, "ERROR! Please type the deck name!");
-			} else {
-				HttpController.post("{\"name\": \" " + deckNameTextField.getJComponent().getText() + " \",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
-						,"http://localhost:8080/decks");
-				JOptionPane.showMessageDialog(null, "Deck added sucesfully!");
-				FrontEndInMemoryData.updateLoggedPlayerData();
+			List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+			String inputName = deckNameTextField.getJComponent().getText();
+			boolean repeat = false;
+			for (Deck deck : decks) {
+				if(deck.getName().equals(inputName)) {
+					repeat = true;
+					JOptionPane.showMessageDialog(null, "ERROR! There's already a deck with this name!");
+				}
+			}
+			
+			if (repeat==false) {
+				if (deckNameTextField.getJComponent().getText().equals("DECK NAME")) {
+					JOptionPane.showMessageDialog(null, "ERROR! Please type the deck name!");
+				} else {
+					HttpController.post("{\"name\": \"" + deckNameTextField.getJComponent().getText() + "\",\"player\":{\"id\":"+ FrontEndInMemoryData.currentlyLoggedPlayer.getId() +"}}"
+							,"http://localhost:8080/decks");
+					JOptionPane.showMessageDialog(null, "Deck added sucesfully!");
+					FrontEndInMemoryData.updateLoggedPlayerData();
+				}
 			}
 		}
 		
