@@ -71,39 +71,37 @@ public class AddDuelPanel implements ActionListener {
 		title = new Label(0, 170, 1920, 130, "ADD DUEL", 130, 200, 200, 255);
 		panel.add(title);
 		
-		deckComboBox = new ComboBox(120, 455, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
-
+		deckComboBox = new ComboBox(355, 455, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
 		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
 		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(decksList.toArray()));
-	
 		panel.add(deckComboBox);
 		
-		duelWBox = new CheckBox(570, 400, 100, 100, "W", 255, 255, 255, 50,255,50, 50);
+		duelWBox = new CheckBox(705, 400, 100, 100, "W", 255, 255, 255, 50,255,50, 50);
 		duelWBox.getJComponent().addActionListener(this);
 		panel.add(duelWBox);
-		duelLBox = new CheckBox(570, 510, 100, 100, "L", 255, 255, 255, 255,50,50, 50);
+		duelLBox = new CheckBox(705, 510, 100, 100, "L", 255, 255, 255, 255,50,50, 50);
 		duelLBox.getJComponent().addActionListener(this);
 		panel.add(duelLBox);
 		
 		
-		coinWBox = new CheckBox(830, 400, 100, 100, "W", 255, 255, 255, 200,200,50, 50);
+		coinWBox = new CheckBox(855, 400, 100, 100, "W", 255, 255, 255, 200,200,50, 50);
 		coinWBox.getJComponent().addActionListener(this);
 		panel.add(coinWBox);
-		coinLBox = new CheckBox(830, 510, 100, 100, "L", 255, 255, 255, 50,50,50, 50);
+		coinLBox = new CheckBox(855, 510, 100, 100, "L", 255, 255, 255, 50,50,50, 50);
 		coinLBox.getJComponent().addActionListener(this);
 		panel.add(coinLBox);
 		
-		firstBox = new CheckBox(940, 400, 100, 100, "1st", 255, 255, 255, 200,200,50, 40);
+		firstBox = new CheckBox(965, 400, 100, 100, "1st", 255, 255, 255, 200,200,50, 40);
 		firstBox.getJComponent().addActionListener(this);
 		panel.add(firstBox);
-		secondBox = new CheckBox(940, 510, 100, 100, "2nd", 255, 255, 255, 50,50,50, 40);
+		secondBox = new CheckBox(965, 510, 100, 100, "2nd", 255, 255, 255, 50,50,50, 40);
 		secondBox.getJComponent().addActionListener(this);
 		panel.add(secondBox);
 		
-		turnsTextField = new TextField(1200, 455, 100, 100, " turns", 40);
+		turnsTextField = new TextField(1115, 455, 100, 100, " turns", 40);
 		panel.add(turnsTextField);
 		
-		oppDecKComboBox = new ComboBox(1460, 455, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
+		oppDecKComboBox = new ComboBox(1265, 455, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
 		OppDeck[] items = OppDeck.values();
 		oppDecKComboBox.getJComponent().setModel(new DefaultComboBoxModel(items));
 		panel.add(oppDecKComboBox);

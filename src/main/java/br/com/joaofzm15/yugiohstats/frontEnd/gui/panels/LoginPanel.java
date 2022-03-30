@@ -41,20 +41,19 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920, 1080);
 
-		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
-//		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
+		usernameTextField = new TextField(828, 475, 264, 56, "                 username", 28);
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
 
-		passwordTextField = new PasswordField(828, 650, 264, 56, "                  password", 28);
+		passwordTextField = new PasswordField(828, 575, 264, 56, "                  password", 28);
 		passwordTextField.getJComponent().addActionListener(this);
 		panel.add(passwordTextField);
 
-		loginButton = new Button(869, 750, 182, 56, "SIGN IN", 20, 255, 20, 62);
+		loginButton = new Button(869, 675, 182, 56, "SIGN IN", 20, 255, 20, 62);
 		loginButton.getJComponent().addActionListener(this);
 		panel.add(loginButton);
 
-		registerButton = new Button(815, 850, 290, 56, "CREATE ACCOUNT", 20, 160, 20, 42);
+		registerButton = new Button(815, 775, 290, 56, "CREATE ACCOUNT", 20, 160, 20, 42);
 		registerButton.getJComponent().addActionListener(this);
 		panel.add(registerButton);
 

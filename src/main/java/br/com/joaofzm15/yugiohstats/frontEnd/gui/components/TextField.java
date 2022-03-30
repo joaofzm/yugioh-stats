@@ -32,7 +32,7 @@ public class TextField implements FrameComponent {
 		textField.setFont(new Font("Impact", Font.PLAIN, (int) (fontSize * Config.multiplier)));
 		textField.setFocusable(true);
 	
-		textField.setBorder(BorderFactory.createLineBorder(Color.white));
+		textField.setBorder(BorderFactory.createLineBorder(new Color(50,200,50),3));
 //		textField.setBorderPainted(false);
 		
 		textField.addFocusListener(new FocusListener() {

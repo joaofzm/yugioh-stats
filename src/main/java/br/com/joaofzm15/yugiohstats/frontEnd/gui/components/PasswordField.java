@@ -33,7 +33,7 @@ public class PasswordField implements FrameComponent {
 		textField.setFont(new Font("Impact", Font.PLAIN, (int) (fontSize * Config.multiplier)));
 		textField.setFocusable(true);
 		textField.setEchoChar((char)0);
-		textField.setBorder(BorderFactory.createLineBorder(Color.white));
+		textField.setBorder(BorderFactory.createLineBorder(new Color(50,200,50),3));
 //		textField.setBorderPainted(false);
 		
 		textField.addFocusListener(new FocusListener() {

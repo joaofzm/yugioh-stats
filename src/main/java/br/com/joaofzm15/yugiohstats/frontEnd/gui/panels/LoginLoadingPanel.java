@@ -32,9 +32,8 @@ public class LoginLoadingPanel implements ActionListener {
 		this.frame=frame;
 		panel = new Panel(1920,1080);
 		
-		loadingLabel= new Label(713, 400, 498, 498, "Assets/buffering.png");
+		loadingLabel= new Label(713, 400, 498,498, "Assets/loading.png");
 		panel.add(loadingLabel);
-		
 		
 		bg = new JLabel();
 		
