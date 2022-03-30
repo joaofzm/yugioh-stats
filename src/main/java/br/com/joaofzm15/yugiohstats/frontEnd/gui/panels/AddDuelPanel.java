@@ -2,7 +2,12 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -183,6 +188,12 @@ public class AddDuelPanel implements ActionListener {
 		return oppDecKComboBox.getJComponent().getSelectedIndex();
 	}
 	
+	private String getCurrentInstantInStringFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+        Instant instantNow = Instant.now();
+		return formatter.format(instantNow);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -203,7 +214,8 @@ public class AddDuelPanel implements ActionListener {
 						+ "        \"deck\":{"
 						+ "            \"id\": " + getDeckIdFromComboBox() +" "
 						+ "        },"
-						+ "        \"oppDeck\": " + getOppDeckIdFromComboBox() +" "
+						+ "        \"oppDeck\": " + getOppDeckIdFromComboBox() +" , "
+						+ "        \"date\": \""+getCurrentInstantInStringFormat()+"\""
 						+ "    }"
 						,"http://localhost:8080/duels");
 				JOptionPane.showMessageDialog(null, "Duel added sucesfully!!");

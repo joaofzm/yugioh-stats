@@ -35,15 +35,14 @@ public class Duel implements Serializable {
 	private OppDeck oppDeck;
 	private int turns;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", shape = JsonFormat.Shape.STRING)
-//	 @JsonSerialize(using = LocalDateTimeSerializer.class)
-	private Instant moment;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT-3")
+	private Instant date;
 
 	public Duel() {
 
 	}
 
-	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant moment) {
+	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant date) {
 		this.id = id;
 		this.coinResult = coinResult;
 		this.first=first;
@@ -51,7 +50,7 @@ public class Duel implements Serializable {
 		this.deck = deck;
 		this.oppDeck = oppDeck;
 		this.turns = turns;
-		this.moment = moment;
+		this.date = date;
 	}
 
 	public Long getId() {
@@ -102,12 +101,12 @@ public class Duel implements Serializable {
 		this.turns = turns;
 	}
 	
-	public Instant getMoment() {
-		return moment;
+	public Instant getDate() {
+		return date;
 	}
 
-	public void setMoment(Instant date) {
-		this.moment = date;
+	public void setDate(Instant date) {
+		this.date = date;
 	}
 	
 	public boolean isFirst() {
