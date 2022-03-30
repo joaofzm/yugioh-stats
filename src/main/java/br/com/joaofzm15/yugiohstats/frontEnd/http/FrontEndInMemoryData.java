@@ -33,8 +33,4 @@ public class FrontEndInMemoryData {
 		currentlyLoggedPlayer=null;
 	}
 	
-	public static List<Deck> getDecks() {
-		return null;
-	}
-
 }

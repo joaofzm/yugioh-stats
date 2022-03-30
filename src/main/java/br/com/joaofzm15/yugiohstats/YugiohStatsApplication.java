@@ -19,7 +19,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.panels.RegisterAccountPanel;
 public class YugiohStatsApplication {
 
 	public static void main(String[] args) {
-
+		
 		Config.setMultiplier();
 		Frame frame = new Frame(Config.x, Config.y);
 		

@@ -1,5 +1,8 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.gui.config;
 
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
+
 public class Config {
 
 	public static boolean borderless = false;
@@ -10,6 +13,10 @@ public class Config {
 	public static double multiplier;
 	
 	public static void setMultiplier() {
+		 UIManager UI=new UIManager();
+		 UI.put("OptionPane.background",new ColorUIResource(153,187,255));
+		 UI.put("Panel.background",new ColorUIResource(153,187,255));
+		 
 		if (res==1) {
 			multiplier=1;
 			x=1920;

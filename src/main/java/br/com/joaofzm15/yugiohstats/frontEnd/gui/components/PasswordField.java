@@ -39,7 +39,6 @@ public class PasswordField implements FrameComponent {
 		textField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
