@@ -20,6 +20,8 @@ public class Player implements Serializable {
 	private Long id;
 	private String name;
 	
+	private String password;
+	
 	@OneToMany(mappedBy = "player")
 //	@JsonIgnore
 	private List<Deck> decks = new ArrayList<>();
@@ -30,9 +32,10 @@ public class Player implements Serializable {
 
 	}
 	
-	public Player(Long id, String name) {
+	public Player(Long id, String name, String password) {
 		this.id = id;
 		this.name = name;
+		this.password=password;
 	}
 
 	public Long getId() {
@@ -53,6 +56,15 @@ public class Player implements Serializable {
 
 	public List<Deck> getDecks() {
 		return decks;
+	}
+
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

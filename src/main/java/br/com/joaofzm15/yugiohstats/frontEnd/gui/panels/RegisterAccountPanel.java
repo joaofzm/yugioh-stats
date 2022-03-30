@@ -85,9 +85,7 @@ public class RegisterAccountPanel implements ActionListener {
 		if (e.getSource() == registerButton.getJComponent()) {
 			HttpResponse<String> response = HttpController.getHttpResponseFromUrl("http://localhost:8080/players");
 			List<Player> listOfUserNames = HttpController.parseJsonIntoPlayer(response);
-			
 			boolean repeated = false;
-			
 			for (Player player : listOfUserNames) {
 				if (usernameTextField.getJComponent().getText().equals(player.getName())) {
 					JOptionPane.showMessageDialog(null, "Username already in use! Please choose another one!");
@@ -95,14 +93,19 @@ public class RegisterAccountPanel implements ActionListener {
 					break;
 				}
 			} 
+			
 			if (!repeated) {
 				if (usernameTextField.getJComponent().getText().equals("                 username")) {
 					JOptionPane.showMessageDialog(null, "ERROR! Please type an username!");
+				} else if(passwordTextField.getJComponent().getText().equals("                  password")) {
+					JOptionPane.showMessageDialog(null, "ERROR! Please type a password!");
 				} else {
-					HttpController.post("{\"name\": \"" + usernameTextField.getJComponent().getText() + "\"}}",
+					HttpController.post("    {"
+							+ "     \"name\": \""+usernameTextField.getJComponent().getText()+"\","
+							+ "     \"password\": \""+passwordTextField.getJComponent().getText()+"\""
+							+ "    }",
 							"http://localhost:8080/players");
 					JOptionPane.showMessageDialog(null, "Account created!");
-					
 					LoginPanel initialPanel = new LoginPanel(frame);
 					frame.getContentPane().removeAll();
 					frame.getContentPane().add(initialPanel.getPanel().getJComponent());

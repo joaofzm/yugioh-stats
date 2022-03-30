@@ -31,8 +31,8 @@ public class H2DataBasePopulator implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Player p1 = new Player(null, "irvin");
-		Player p2 = new Player(null, "Revolver");
+		Player p1 = new Player(null, "irvin", "1234");
+		Player p2 = new Player(null, "Revolver", "borreload");
 		
 		Deck d1 = new Deck(null, "Sky Striker", p1);
 		Deck d2 = new Deck(null, "Dragon Link", p2);

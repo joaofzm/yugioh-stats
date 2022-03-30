@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.PasswordField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
@@ -26,7 +27,7 @@ public class LoginPanel implements ActionListener {
 	private JLabel bg;
 
 	private TextField usernameTextField;
-	private TextField passwordTextField;
+	private PasswordField passwordTextField;
 
 	private Button loginButton;
 	private Button registerButton;
@@ -40,12 +41,12 @@ public class LoginPanel implements ActionListener {
 
 		panel = new Panel(1920, 1080);
 
-//		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
-		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
+		usernameTextField = new TextField(828, 550, 264, 56, "                 username", 28);
+//		usernameTextField = new TextField(828, 550, 264, 56, "irvin", 28);
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
 
-		passwordTextField = new TextField(828, 650, 264, 56, "                  password", 28);
+		passwordTextField = new PasswordField(828, 650, 264, 56, "                  password", 28);
 		passwordTextField.getJComponent().addActionListener(this);
 		panel.add(passwordTextField);
 
@@ -81,16 +82,20 @@ public class LoginPanel implements ActionListener {
 			Player p = FrontEndInMemoryData.logIn(usernameTextField.getJComponent().getText());
 
 			if (!(p==null)) {
-				MenuPanel initialPanel = new MenuPanel(frame);
-				frame.getContentPane().removeAll();
-				frame.getContentPane().add(initialPanel.getPanel().getJComponent());
-				frame.revalidate();
-				initialPanel.getPanel().getJComponent().repaint();
+				if (passwordTextField.getJComponent().getText().equals(p.getPassword())) {
+					MenuPanel initialPanel = new MenuPanel(frame);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+					frame.revalidate();
+					initialPanel.getPanel().getJComponent().repaint();
+				} else {
+					JOptionPane.showMessageDialog(null, "Wrong password!");
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Username not found!");
 			}
 		}
-
+		
 		if (e.getSource() == registerButton.getJComponent()) {
 			RegisterAccountPanel initialPanel = new RegisterAccountPanel(frame);
 			frame.getContentPane().removeAll();
