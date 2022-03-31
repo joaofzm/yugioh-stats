@@ -133,5 +133,11 @@ public class Duel implements Serializable {
 		Duel other = (Duel) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	@Override
+	public String toString() {
+		return "		DUEL: ["+getId()+"]"+"["+isResult()+"]"+"["+isCoinResult()+"]"+"["+isFirst()+"]"
+	+"["+getTurns()+"]"+"["+getOppDeck()+"]\n";
+	}
 
 }

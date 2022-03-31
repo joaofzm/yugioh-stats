@@ -98,7 +98,11 @@ public class MenuPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == viewDataButton.getJComponent()) {
-			System.out.println("view data");
+			ViewDataPanel initialPanel = new ViewDataPanel(frame);
+			frame.getContentPane().removeAll();
+			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+			frame.revalidate();
+			initialPanel.getPanel().getJComponent().repaint();
 		}
 		
 		if (e.getSource() == logOutButton.getJComponent()) {

@@ -56,7 +56,6 @@ public class Player implements Serializable {
 	public List<Deck> getDecks() {
 		return decks;
 	}
-
 	
 	public String getPassword() {
 		return password;
@@ -85,7 +84,7 @@ public class Player implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "{PLAYER: ["+name+"]"+"[id: "+id+"]" + decks+"}";
+		return "PLAYER: ["+name+"]"+"[id: "+id+"]\n" + decks;
 	}
 	
 	
