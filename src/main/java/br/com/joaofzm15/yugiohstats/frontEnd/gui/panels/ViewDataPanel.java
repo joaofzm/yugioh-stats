@@ -2,32 +2,20 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
-import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
-import br.com.joaofzm15.yugiohstats.frontEnd.exceptions.BlankFieldException;
-import br.com.joaofzm15.yugiohstats.frontEnd.exceptions.FieldInputMismatchException;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
-import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.CheckBox;
-import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
-import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
-import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.Calculator;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DataMiner;
 
@@ -54,17 +42,38 @@ public class ViewDataPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		titleLabel = new Label(0, 170, 1920, 130, "STATS", 130, 200, 200, 255);
+		titleLabel = new Label(0, 170, 1920, 130, "GENERAL STATS", 130, 200, 200, 255);
 		panel.add(titleLabel);
 		
+		//===============================================
 		int totalWins = Calculator.calculateUserTotalWins();
 		int totalLosses = Calculator.calculateUserTotalLosses();
 		int totalDuels = totalWins+totalLosses;
 		double winrate = Calculator.calculateUserTotalWinRate();
-		winRateLabel = new Label(0, 320, 1920, 50, "Wins: "+totalWins+"  |  Losses: "+totalLosses+"  "
-				+ "|  ("+totalDuels+")  -  "+winrate+"%"
+		winRateLabel = new Label(0, 340, 1920, 50, "TOTAL WIN RATE:   Wins: "+totalWins+"  "
+				+ "|  Losses: "+totalLosses+"  "
+				+ "|  ( "+totalDuels+" )  -  "+winrate+"%"
 				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
+		//===============================================
+		int firstLabelY = 340;
+		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+		for (Deck deck : decks) {
+			List<Duel> duels = deck.getDuels();
+			int deckWins = DataMiner.getWinsFromList(duels);
+			int deckLosses = DataMiner.getLossesFromList(duels);
+			int deckTotalDuels = deckWins+deckLosses;
+			double deckWinrate = Calculator.calculateWinRate(deckWins, deckLosses);
+			
+			firstLabelY+=70;
+			Label label = new Label(0, firstLabelY, 1920, 50, deck.getName()+": "
+					+ "   Wins: "+deckWins+"  "
+					+ "|  Losses: "+deckLosses+"  "
+					+ "|  ( "+deckTotalDuels+" )  -  "+deckWinrate+"%"
+					, 50, 200, 200, 255);
+			panel.add(label);
+		}
+		//===============================================
 
 		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);
