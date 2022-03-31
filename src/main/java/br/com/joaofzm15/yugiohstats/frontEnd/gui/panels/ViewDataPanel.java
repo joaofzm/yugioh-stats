@@ -55,7 +55,7 @@ public class ViewDataPanel implements ActionListener {
 		titleLabel = new Label(0, 170, 1920, 130, "STATS", 130, 200, 200, 255);
 		panel.add(titleLabel);
 		
-		winRateLabel = new Label(0, 220, 1920, 50, "blobllasjddpsajidaso", 50, 200, 200, 255);
+		winRateLabel = new Label(0, 220, 1920, 50, "blobllassadjddpsajidaso", 50, 200, 200, 255);
 		panel.add(winRateLabel);
 
 		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
