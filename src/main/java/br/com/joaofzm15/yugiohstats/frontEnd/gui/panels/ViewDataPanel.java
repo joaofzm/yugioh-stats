@@ -28,13 +28,16 @@ public class ViewDataPanel implements ActionListener {
 	
 	private JLabel bg;
 	
-	private Button miscStatsButton;
-
 	private Button returnButton;
 	
 	private Label titleLabel;
 	
 	private Label winRateLabel;
+	private Label goingFirstWinRateLabel;
+	private Label goingSecondWinRateLabel;
+	
+	private Label coinWinRateLabel;
+	private Label goingFirstFrequencyLabel;
 
 	private JFrame frame;
 	
@@ -48,37 +51,73 @@ public class ViewDataPanel implements ActionListener {
 		panel.add(titleLabel);
 		
 		//===============================================
+		int labelY = 340;
+		//===============================================
 		int totalWins = DataMiner.getUserTotalWins();
 		int totalLosses = DataMiner.getUserTotalLosses();
 		int totalDuels = totalWins+totalLosses;
 		double winrate = DataMiner.getUserTotalWinRate();
-		winRateLabel = new Label(0, 340, 1920, 50, "Wins: "+totalWins+"  "
+		winRateLabel = new Label(0, labelY, 1920, 50, "Total  >>>  "
+				+ "Wins: "+totalWins+"  "
 				+ "|  Losses: "+totalLosses+"  "
 				+ "|  ( "+totalDuels+" )  -  "+winrate+"%"
 				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
 		//===============================================
-//		int firstLabelY = 360;
-//		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
-//		for (Deck deck : decks) {
-//			List<Duel> duels = deck.getDuels();
-//			int deckWins = DataMiner.getWinsFromList(duels);
-//			int deckLosses = DataMiner.getLossesFromList(duels);
-//			int deckTotalDuels = deckWins+deckLosses;
-//			double deckWinrate = Calculator.calculateWinRate(deckWins, deckLosses);
-//			
-//			firstLabelY+=70;
-//			Label label = new Label(0, firstLabelY, 1920, 50, deck.getName()+": "
-//					+ "   Wins: "+deckWins+"  "
-//					+ "|  Losses: "+deckLosses+"  "
-//					+ "|  ( "+deckTotalDuels+" )  -  "+deckWinrate+"%"
-//					, 50, 200, 200, 255);
-//			panel.add(label);
-//		}
+		labelY+=150;
 		//===============================================
-		miscStatsButton = new Button(865, 880, 190, 56, "MISC",20,20,255,62);
-		miscStatsButton.getJComponent().addActionListener(this);
-		panel.add(miscStatsButton);
+		int totalFirstWins = DataMiner.getUserTotalWinsGoingFirst();
+		int totalFirstLosses = DataMiner.getUserTotalLossesGoingFirst();
+		int totalFirstDuels = totalFirstWins+totalFirstLosses;
+		double firstWinrate = DataMiner.getUserTotalWinRateGoingFirst();
+		goingFirstWinRateLabel = new Label(0, labelY, 1920, 50, "Going Fist  >>>  "
+				+ "Wins: "+totalFirstWins+"  "
+				+ "|  Losses: "+totalFirstLosses+"  "
+				+ "|  ( "+totalFirstDuels+" )  -  "+firstWinrate+"%"
+				, 50, 200, 200, 255);
+		panel.add(goingFirstWinRateLabel);
+		//===============================================
+		labelY+=75;
+		//===============================================
+		int totalSecondWins = DataMiner.getUserTotalWinsGoingSecond();
+		int totalSecondLosses = DataMiner.getUserTotalLossesGoingSecond();
+		int totalSecondDuels = totalSecondWins+totalSecondLosses;
+		double secondWinrate = DataMiner.getUserTotalWinRateGoingSecond();
+		goingSecondWinRateLabel = new Label(0, labelY, 1920, 50, "Going Second  >>>  "
+				+ "Wins: "+totalSecondWins+"  "
+				+ "|  Losses: "+totalSecondLosses+"  "
+				+ "|  ( "+totalSecondDuels+" )  -  "+secondWinrate+"%"
+				, 50, 200, 200, 255);
+		panel.add(goingSecondWinRateLabel);
+		//===============================================
+		labelY+=205;
+		//===============================================
+		int totalCoinWins = DataMiner.getUserTotalCoinWins();
+		int totalCoinLosses = DataMiner.getUserTotalCoinLosses();
+		int totalCoinsThrow = totalCoinWins+totalCoinLosses;
+		double coinWinrate = DataMiner.getUserTotalCoinWinRate();
+		coinWinRateLabel = new Label(0, labelY, 1920, 50, "Coin toss  >>>  "
+				+ "Wins: "+totalCoinWins+"  "
+				+ "|  Losses: "+totalCoinLosses+"  "
+				+ "|  ( "+totalCoinsThrow+" )  -  "+coinWinrate+"%"
+				, 50, 200, 200, 255);
+		panel.add(coinWinRateLabel);
+		//===============================================
+		labelY+=75;
+		//===============================================
+		int totalDuelsGoingFirst = DataMiner.getUserTotalDuelsGoingFirst();
+		int totalDuelsGoingSecond = DataMiner.getUserTotalDuelsGoingSecond();
+		int totalDuelsAmount = totalDuelsGoingFirst+totalDuelsGoingSecond;
+		double goingFirstFrequency = DataMiner.getUserTotalGoingFirstFrequencyPercentage();
+		goingFirstFrequencyLabel = new Label(0, labelY, 1920, 50, "Coin toss  >>>  "
+				+ "Duels going first: "+totalDuelsGoingFirst+"  "
+				+ "|  Duels going second: "+totalDuelsGoingSecond+"  "
+				+ "|  ( "+totalDuelsAmount+" )  -  "+goingFirstFrequency+"%"
+				, 50, 200, 200, 255);
+		panel.add(goingFirstFrequencyLabel);
+		
+		
+		
 		
 		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);

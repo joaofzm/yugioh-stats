@@ -1,9 +1,11 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.http;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 
 public class FrontEndInMemoryData {
@@ -31,6 +33,19 @@ public class FrontEndInMemoryData {
 	
 	public static void logOut() {
 		currentlyLoggedPlayer=null;
+	}
+	
+	public static List<Duel> getAllDuelsFromUser() {
+		List<Duel> duels = new ArrayList<>();
+
+		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+		for (Deck deck : decks) {
+			List<Duel> deckDuels = deck.getDuels();
+			for (Duel duel : deckDuels) {
+				duels.add(duel);
+			}
+		}
+		return duels;
 	}
 	
 }

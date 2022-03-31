@@ -9,179 +9,109 @@ import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 
 public class DataMiner {
 
-	// ===============Support Methods=========================================
-	public static List<Duel> getAllDuels() {
-		List<Duel> duels = new ArrayList<>();
-
-		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
-		for (Deck deck : decks) {
-			List<Duel> deckDuels = deck.getDuels();
-			for (Duel duel : deckDuels) {
-				duels.add(duel);
-			}
-		}
-		return duels;
-	}
-
-	public static int getWinsFromList(List<Duel> duels) {
-		int wins = 0;
-		for (Duel duel : duels) {
-			if (duel.isResult()) {
-				wins++;
-			}
-		}
-		return wins;
-	}
-
-	public static int getLossesFromList(List<Duel> duels) {
-		int losses = 0;
-		for (Duel duel : duels) {
-			if (!duel.isResult()) {
-				losses++;
-			}
-		}
-		return losses;
-	}
-
-	public static int getCoinWinsFromList(List<Duel> duels) {
-		int wins = 0;
-		for (Duel duel : duels) {
-			if (duel.isCoinResult()) {
-				wins++;
-			}
-		}
-		return wins;
-	}
-
-	public static int getCoinLossesFromList(List<Duel> duels) {
-		int losses = 0;
-		for (Duel duel : duels) {
-			if (!duel.isCoinResult()) {
-				losses++;
-			}
-		}
-		return losses;
-	}
-
-	public static List<Duel> filterOnlyWinsFromListOfDuel(List<Duel> list){
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if(duel.isResult()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-	
-	public static List<Duel> filterOnlyLossesFromListOfDuel(List<Duel> list){
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if(!duel.isResult()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-
-	public static List<Duel> filterOnlyDuelsWherePlayerWonCoin(List<Duel> list) {
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if (duel.isCoinResult()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-	
-	public static List<Duel> filterOnlyDuelsWherePlayerLostCoin(List<Duel> list) {
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if (!duel.isCoinResult()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-	
-	public static List<Duel> filterOnlyDuelsWherePlayerWentFirst(List<Duel> list) {
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if (duel.isFirst()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-	
-	public static List<Duel> filterOnlyDuelsWherePlayerWentSecond(List<Duel> list) {
-		List<Duel> toBeReturned = new ArrayList<>();
-		for (Duel duel : list) {
-			if (!duel.isFirst()) {
-				toBeReturned.add(duel);
-			}
-		}
-		return toBeReturned;
-	}
-	// ===============Support Methods=========================================
-
-	
-	
 	
 	// ===============Final Info Methods=========================================
 	public static int getUserTotalWins() {
-		List<Duel> duels = getAllDuels();
-		return getWinsFromList(duels);
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyWins = DuelListFilter.filterOnlyWins(allDuels);
+		return onlyWins.size();
 	}
 	public static int getUserTotalLosses() {
-		List<Duel> duels = getAllDuels();
-		return getLossesFromList(duels);
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyLosses = DuelListFilter.filterOnlyLosses(allDuels);
+		return onlyLosses.size();
 	}
 	public static double getUserTotalWinRate() {
-		double winRate = Calculator.calculateWinRate(getUserTotalWins(), getUserTotalLosses());
-		return winRate;
+		int wins = getUserTotalWins();
+		int losses = getUserTotalLosses();
+		return Calculator.calculateWinRate(wins, losses);
 	}
 
 	
+	
+	
+	
+	public static int getUserTotalWinsGoingFirst() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyFirst = DuelListFilter.filterOnlyWentFirst(allDuels);
+		List<Duel> onlyWins = DuelListFilter.filterOnlyWins(onlyFirst);
+		return onlyWins.size();
+	}
+	public static int getUserTotalLossesGoingFirst() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyFirst = DuelListFilter.filterOnlyWentFirst(allDuels);
+		List<Duel> onlyLosses = DuelListFilter.filterOnlyLosses(onlyFirst);
+		return onlyLosses.size();
+	}
+	public static double getUserTotalWinRateGoingFirst() {
+		int wins = getUserTotalWinsGoingFirst();
+		int losses = getUserTotalLossesGoingFirst();
+		return Calculator.calculateWinRate(wins, losses);
+	}
+	
+	
+	
+	
+	
+	public static int getUserTotalWinsGoingSecond() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlySecond = DuelListFilter.filterOnlyWentSecond(allDuels);
+		List<Duel> onlyWins = DuelListFilter.filterOnlyWins(onlySecond);
+		return onlyWins.size();
+	}
+	public static int getUserTotalLossesGoingSecond() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlySecond = DuelListFilter.filterOnlyWentSecond(allDuels);
+		List<Duel> onlyLosses = DuelListFilter.filterOnlyLosses(onlySecond);
+		return onlyLosses.size();
+	}
+	public static double getUserTotalWinRateGoingSecond() {
+		int wins = getUserTotalWinsGoingSecond();
+		int losses = getUserTotalLossesGoingSecond();
+		return Calculator.calculateWinRate(wins, losses);
+	}
+	
+	
+	
+	
+	
 	public static int getUserTotalCoinWins() {
-		List<Duel> duels = getAllDuels();
-		return getCoinWinsFromList(duels);
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyCoinWins = DuelListFilter.filterOnlyWonCoin(allDuels);
+		return onlyCoinWins.size();
 	}
 	public static int getUserTotalCoinLosses() {
-		List<Duel> duels = getAllDuels();
-		return getCoinLossesFromList(duels);
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyCoinLosses = DuelListFilter.filterOnlyLostCoin(allDuels);
+		return onlyCoinLosses.size();
 	}
 	public static double getUserTotalCoinWinRate() {
-		double winRate = Calculator.calculateWinRate(getUserTotalCoinWins(), getUserTotalCoinLosses());
-		return winRate;
+		int wins = getUserTotalCoinWins();
+		int losses = getUserTotalCoinLosses();
+		return Calculator.calculateWinRate(wins, losses);
 	}
 	
 	
-	public static int getTotalWinsGoingFirst() {
-		//TODO
-		return 0;
+	
+	
+	
+	public static int getUserTotalDuelsGoingFirst() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlyFirst = DuelListFilter.filterOnlyWentFirst(allDuels);
+		return onlyFirst.size();
 	}
-	public static int getTotalLossesGoingFirst() {
-		//TODO
-		return 0;
+	public static int getUserTotalDuelsGoingSecond() {
+		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> onlySecond = DuelListFilter.filterOnlyWentSecond(allDuels);
+		return onlySecond.size();
 	}
-	public static double getUserWinRateGoingFirst() {
-		List<Duel> duels = filterOnlyDuelsWherePlayerWentFirst(getAllDuels());
-		double winRate = Calculator.calculateWinRate(getWinsFromList(duels), getLossesFromList(duels));
-		return winRate;
+	public static double getUserTotalGoingFirstFrequencyPercentage() {
+			int first = getUserTotalDuelsGoingFirst();
+			int second = getUserTotalDuelsGoingSecond();
+			return Calculator.calculateWinRate(first, second);
 	}
 	
-	public static int getTotalWinsGoingSecond() {
-		//TODO
-		return 0;
-	}
-	public static int getTotalLossesGoingSecond() {
-		//TODO
-		return 0;
-	}
-	public static double getUserWinRateGoingSecond() {
-		//TODO
-		return 0;
-	}
+	
 	// ===============Final Info Methods=========================================
 
 }
