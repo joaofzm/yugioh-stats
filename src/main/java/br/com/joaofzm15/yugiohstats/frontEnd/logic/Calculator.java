@@ -13,20 +13,4 @@ public class Calculator {
 		return toBeReturned;
 	}
 	
-	public static int calculateUserTotalWins() {
-		List<Duel> duels = DataMiner.getAllDuels();
-		return DataMiner.getWinsFromList(duels);
-	}
-	
-	public static int calculateUserTotalLosses() {
-		List<Duel> duels = DataMiner.getAllDuels();
-		return DataMiner.getLossesFromList(duels);
-	}
-	
-	public static double calculateUserTotalWinRate() {
-		List<Duel> duels = DataMiner.getAllDuels();
-		double winRate = calculateWinRate(DataMiner.getWinsFromList(duels),DataMiner.getLossesFromList(duels));
-		return winRate;
-	}
-	
 }

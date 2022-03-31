@@ -28,6 +28,8 @@ public class ViewDataPanel implements ActionListener {
 	
 	private JLabel bg;
 	
+	private Button miscStatsButton;
+
 	private Button returnButton;
 	
 	private Label titleLabel;
@@ -46,35 +48,38 @@ public class ViewDataPanel implements ActionListener {
 		panel.add(titleLabel);
 		
 		//===============================================
-		int totalWins = Calculator.calculateUserTotalWins();
-		int totalLosses = Calculator.calculateUserTotalLosses();
+		int totalWins = DataMiner.getUserTotalWins();
+		int totalLosses = DataMiner.getUserTotalLosses();
 		int totalDuels = totalWins+totalLosses;
-		double winrate = Calculator.calculateUserTotalWinRate();
-		winRateLabel = new Label(0, 340, 1920, 50, "TOTAL WIN RATE:   Wins: "+totalWins+"  "
+		double winrate = DataMiner.getUserTotalWinRate();
+		winRateLabel = new Label(0, 340, 1920, 50, "Wins: "+totalWins+"  "
 				+ "|  Losses: "+totalLosses+"  "
 				+ "|  ( "+totalDuels+" )  -  "+winrate+"%"
 				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
 		//===============================================
-		int firstLabelY = 340;
-		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
-		for (Deck deck : decks) {
-			List<Duel> duels = deck.getDuels();
-			int deckWins = DataMiner.getWinsFromList(duels);
-			int deckLosses = DataMiner.getLossesFromList(duels);
-			int deckTotalDuels = deckWins+deckLosses;
-			double deckWinrate = Calculator.calculateWinRate(deckWins, deckLosses);
-			
-			firstLabelY+=70;
-			Label label = new Label(0, firstLabelY, 1920, 50, deck.getName()+": "
-					+ "   Wins: "+deckWins+"  "
-					+ "|  Losses: "+deckLosses+"  "
-					+ "|  ( "+deckTotalDuels+" )  -  "+deckWinrate+"%"
-					, 50, 200, 200, 255);
-			panel.add(label);
-		}
+//		int firstLabelY = 360;
+//		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+//		for (Deck deck : decks) {
+//			List<Duel> duels = deck.getDuels();
+//			int deckWins = DataMiner.getWinsFromList(duels);
+//			int deckLosses = DataMiner.getLossesFromList(duels);
+//			int deckTotalDuels = deckWins+deckLosses;
+//			double deckWinrate = Calculator.calculateWinRate(deckWins, deckLosses);
+//			
+//			firstLabelY+=70;
+//			Label label = new Label(0, firstLabelY, 1920, 50, deck.getName()+": "
+//					+ "   Wins: "+deckWins+"  "
+//					+ "|  Losses: "+deckLosses+"  "
+//					+ "|  ( "+deckTotalDuels+" )  -  "+deckWinrate+"%"
+//					, 50, 200, 200, 255);
+//			panel.add(label);
+//		}
 		//===============================================
-
+		miscStatsButton = new Button(865, 880, 190, 56, "MISC",20,20,255,62);
+		miscStatsButton.getJComponent().addActionListener(this);
+		panel.add(miscStatsButton);
+		
 		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
