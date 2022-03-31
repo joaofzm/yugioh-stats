@@ -42,4 +42,5 @@ public class DataMiner {
 		return losses;
 	}
 	
+	
 }

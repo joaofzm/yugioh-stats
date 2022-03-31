@@ -28,6 +28,8 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.HttpController;
+import br.com.joaofzm15.yugiohstats.frontEnd.logic.Calculator;
+import br.com.joaofzm15.yugiohstats.frontEnd.logic.DataMiner;
 
 public class ViewDataPanel implements ActionListener {
 
@@ -55,7 +57,13 @@ public class ViewDataPanel implements ActionListener {
 		titleLabel = new Label(0, 170, 1920, 130, "STATS", 130, 200, 200, 255);
 		panel.add(titleLabel);
 		
-		winRateLabel = new Label(0, 220, 1920, 50, "blobllassadjddpsajidaso", 50, 200, 200, 255);
+		int totalWins = Calculator.calculateUserTotalWins();
+		int totalLosses = Calculator.calculateUserTotalLosses();
+		int totalDuels = totalWins+totalLosses;
+		double winrate = Calculator.calculateUserTotalWinRate();
+		winRateLabel = new Label(0, 320, 1920, 50, "Wins: "+totalWins+"  |  Losses: "+totalLosses+"  "
+				+ "|  ("+totalDuels+")  -  "+winrate+"%"
+				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
 
 		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
