@@ -22,7 +22,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.logic.Calculator;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DataMiner;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DuelListFilter;
 
-public class ViewDataPanel implements ActionListener {
+public class ViewDeckDataPanel implements ActionListener {
 
 	private Panel panel;
 	public Panel getPanel() {
@@ -31,11 +31,7 @@ public class ViewDataPanel implements ActionListener {
 	
 	private JLabel bg;
 	
-	private ComboBox deckComboBox;
-	
 	private Button returnButton;
-	
-	private Button viewDeckStatsButton;
 	
 	private Label titleLabel;
 	
@@ -48,38 +44,32 @@ public class ViewDataPanel implements ActionListener {
 
 	private JFrame frame;
 	
-	public ViewDataPanel(JFrame frame) {
+	
+	public ViewDeckDataPanel(JFrame frame) {
 		
 		this.frame=frame;
 
 		panel = new Panel(1920,1080);
 		
-		titleLabel = new Label(0, 70, 1920, 130, "GENERAL STATS", 130, 200, 200, 255);
+		titleLabel = new Label(0, 70, 1920, 130
+				, FrontEndInMemoryData.currentlyViewdDeck.getName()+" STATS"
+				, 130, 200, 200, 255);
 		panel.add(titleLabel);
 		
-		deckComboBox = new ComboBox(355, 785, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
-		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
-		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(decksList.toArray()));
-		panel.add(deckComboBox);
-		
-		viewDeckStatsButton = new Button(690, 810, 470, 56, "VIEW DECK STATS",20,255,20,62);
-		viewDeckStatsButton.getJComponent().addActionListener(this);
-		panel.add(viewDeckStatsButton);
-		
-		returnButton = new Button(1300, 810, 190, 56, "RETURN",255,20,20,62);
+		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
 		
 		
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 		//===============================================
-		List<Duel> allDuelsFromUser = FrontEndInMemoryData.getAllDuelsFromUser();
+		List<Duel> allDuelsFromSelectedDeck = FrontEndInMemoryData.currentlyViewdDeck.getDuels();
 		int labelY = 270;
 		//===============================================
-		int totalWins = DataMiner.getTotalWins(allDuelsFromUser);
-		int totalLosses = DataMiner.getTotalLosses(allDuelsFromUser);
+		int totalWins = DataMiner.getTotalWins(allDuelsFromSelectedDeck);
+		int totalLosses = DataMiner.getTotalLosses(allDuelsFromSelectedDeck);
 		int totalDuels = totalWins+totalLosses;
-		double winrate = DataMiner.getTotalWinRate(allDuelsFromUser);
+		double winrate = DataMiner.getTotalWinRate(allDuelsFromSelectedDeck);
 		winRateLabel = new Label(0, labelY, 1920, 50, "Total  >>>  "
 				+ "Wins: "+totalWins+"  "
 				+ "|  Losses: "+totalLosses+"  "
@@ -89,10 +79,10 @@ public class ViewDataPanel implements ActionListener {
 		//===============================================
 		labelY+=110;
 		//===============================================
-		int totalFirstWins = DataMiner.getTotalWinsGoingFirst(allDuelsFromUser);
-		int totalFirstLosses = DataMiner.getTotalLossesGoingFirst(allDuelsFromUser);
+		int totalFirstWins = DataMiner.getTotalWinsGoingFirst(allDuelsFromSelectedDeck);
+		int totalFirstLosses = DataMiner.getTotalLossesGoingFirst(allDuelsFromSelectedDeck);
 		int totalFirstDuels = totalFirstWins+totalFirstLosses;
-		double firstWinrate = DataMiner.getTotalWinRateGoingFirst(allDuelsFromUser);
+		double firstWinrate = DataMiner.getTotalWinRateGoingFirst(allDuelsFromSelectedDeck);
 		goingFirstWinRateLabel = new Label(0, labelY, 1920, 50, "Going Fist  >>>  "
 				+ "Wins: "+totalFirstWins+"  "
 				+ "|  Losses: "+totalFirstLosses+"  "
@@ -102,10 +92,10 @@ public class ViewDataPanel implements ActionListener {
 		//===============================================
 		labelY+=75;
 		//===============================================
-		int totalSecondWins = DataMiner.getTotalWinsGoingSecond(allDuelsFromUser);
-		int totalSecondLosses = DataMiner.getTotalLossesGoingSecond(allDuelsFromUser);
+		int totalSecondWins = DataMiner.getTotalWinsGoingSecond(allDuelsFromSelectedDeck);
+		int totalSecondLosses = DataMiner.getTotalLossesGoingSecond(allDuelsFromSelectedDeck);
 		int totalSecondDuels = totalSecondWins+totalSecondLosses;
-		double secondWinrate = DataMiner.getTotalWinRateGoingSecond(allDuelsFromUser);
+		double secondWinrate = DataMiner.getTotalWinRateGoingSecond(allDuelsFromSelectedDeck);
 		goingSecondWinRateLabel = new Label(0, labelY, 1920, 50, "Going Second  >>>  "
 				+ "Wins: "+totalSecondWins+"  "
 				+ "|  Losses: "+totalSecondLosses+"  "
@@ -115,10 +105,10 @@ public class ViewDataPanel implements ActionListener {
 		//===============================================
 		labelY+=110;
 		//===============================================
-		int totalCoinWins = DataMiner.getTotalCoinWins(allDuelsFromUser);
-		int totalCoinLosses = DataMiner.getTotalCoinLosses(allDuelsFromUser);
+		int totalCoinWins = DataMiner.getTotalCoinWins(allDuelsFromSelectedDeck);
+		int totalCoinLosses = DataMiner.getTotalCoinLosses(allDuelsFromSelectedDeck);
 		int totalCoinsThrow = totalCoinWins+totalCoinLosses;
-		double coinWinrate = DataMiner.getTotalCoinWinRate(allDuelsFromUser);
+		double coinWinrate = DataMiner.getTotalCoinWinRate(allDuelsFromSelectedDeck);
 		coinWinRateLabel = new Label(0, labelY, 1920, 50, "Coin toss win rate  >>>  "
 				+ "Wins: "+totalCoinWins+"  "
 				+ "|  Losses: "+totalCoinLosses+"  "
@@ -128,10 +118,10 @@ public class ViewDataPanel implements ActionListener {
 		//===============================================
 		labelY+=75;
 		//===============================================
-		int totalDuelsGoingFirst = DataMiner.getTotalDuelsGoingFirst(allDuelsFromUser);
-		int totalDuelsGoingSecond = DataMiner.getTotalDuelsGoingSecond(allDuelsFromUser);
+		int totalDuelsGoingFirst = DataMiner.getTotalDuelsGoingFirst(allDuelsFromSelectedDeck);
+		int totalDuelsGoingSecond = DataMiner.getTotalDuelsGoingSecond(allDuelsFromSelectedDeck);
 		int totalDuelsAmount = totalDuelsGoingFirst+totalDuelsGoingSecond;
-		double goingFirstFrequency = DataMiner.getTotalGoingFirstFrequencyPercentage(allDuelsFromUser);
+		double goingFirstFrequency = DataMiner.getTotalGoingFirstFrequencyPercentage(allDuelsFromSelectedDeck);
 		goingFirstFrequencyLabel = new Label(0, labelY, 1920, 50, "Play first frequency  >>>  "
 				+ "First: "+totalDuelsGoingFirst+"  "
 				+ "|  Second: "+totalDuelsGoingSecond+"  "
@@ -152,32 +142,15 @@ public class ViewDataPanel implements ActionListener {
 
 	}
 
-	private Deck getSelectedDeck() {
-		String selectedDeckName = deckComboBox.getJComponent().getSelectedItem().toString();
-		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
-		for (Deck deck : decksList) {
-			if (deck.getName().equals(selectedDeckName)) {
-				return deck;
-			}
-		}
-		return null;	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == viewDeckStatsButton.getJComponent()) {
-			FrontEndInMemoryData.viewDeck(getSelectedDeck());
-			
-			ViewDeckDataPanel initialPanel = new ViewDeckDataPanel(frame);
-			frame.getContentPane().removeAll();
-			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
-			frame.revalidate();
-			initialPanel.getPanel().getJComponent().repaint();
-		}
 
 			
 		if (e.getSource() == returnButton.getJComponent()) {
-			MenuPanel initialPanel = new MenuPanel(frame);
+			FrontEndInMemoryData.stopViewingDeck();
+			ViewDataPanel initialPanel = new ViewDataPanel(frame);
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 			frame.revalidate();

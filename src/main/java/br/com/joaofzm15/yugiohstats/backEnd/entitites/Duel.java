@@ -136,13 +136,7 @@ public class Duel implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "ID: "+ id+ "\n" +
-				"RESULT: " +result+ "\n" +
-				"COIN RESULT: " +coinResult+ "\n" +
-				"FIRST: " +first+ "\n" +
-				"OPP DECK: " +oppDeck+ "\n" +
-				"TURNS: " +turns+ "\n" +
-				" OWNER: " + deck;
+		return "\nID: "+ id + " - OPP DECK: " +oppDeck ;
 	}
 	
 }
