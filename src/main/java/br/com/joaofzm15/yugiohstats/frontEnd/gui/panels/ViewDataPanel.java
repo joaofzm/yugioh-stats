@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,12 +13,14 @@ import javax.swing.JLabel;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.ComboBox;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.Calculator;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DataMiner;
+import br.com.joaofzm15.yugiohstats.frontEnd.logic.DuelListFilter;
 
 public class ViewDataPanel implements ActionListener {
 
@@ -28,7 +31,11 @@ public class ViewDataPanel implements ActionListener {
 	
 	private JLabel bg;
 	
+	private ComboBox deckComboBox;
+	
 	private Button returnButton;
+	
+	private Button viewDeckStatsButton;
 	
 	private Label titleLabel;
 	
@@ -47,11 +54,25 @@ public class ViewDataPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		titleLabel = new Label(0, 170, 1920, 130, "GENERAL STATS", 130, 200, 200, 255);
+		titleLabel = new Label(0, 70, 1920, 130, "GENERAL STATS", 130, 200, 200, 255);
 		panel.add(titleLabel);
 		
+		deckComboBox = new ComboBox(355, 785, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
+		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(decksList.toArray()));
+		panel.add(deckComboBox);
+		
+		viewDeckStatsButton = new Button(690, 810, 470, 56, "VIEW DECK STATS",20,255,20,62);
+		viewDeckStatsButton.getJComponent().addActionListener(this);
+		panel.add(viewDeckStatsButton);
+		
+		returnButton = new Button(1300, 810, 190, 56, "RETURN",255,20,20,62);
+		returnButton.getJComponent().addActionListener(this);
+		panel.add(returnButton);
+		
+		
 		//===============================================
-		int labelY = 340;
+		int labelY = 270;
 		//===============================================
 		int totalWins = DataMiner.getUserTotalWins();
 		int totalLosses = DataMiner.getUserTotalLosses();
@@ -64,7 +85,7 @@ public class ViewDataPanel implements ActionListener {
 				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
 		//===============================================
-		labelY+=150;
+		labelY+=110;
 		//===============================================
 		int totalFirstWins = DataMiner.getUserTotalWinsGoingFirst();
 		int totalFirstLosses = DataMiner.getUserTotalLossesGoingFirst();
@@ -90,13 +111,13 @@ public class ViewDataPanel implements ActionListener {
 				, 50, 200, 200, 255);
 		panel.add(goingSecondWinRateLabel);
 		//===============================================
-		labelY+=205;
+		labelY+=110;
 		//===============================================
 		int totalCoinWins = DataMiner.getUserTotalCoinWins();
 		int totalCoinLosses = DataMiner.getUserTotalCoinLosses();
 		int totalCoinsThrow = totalCoinWins+totalCoinLosses;
 		double coinWinrate = DataMiner.getUserTotalCoinWinRate();
-		coinWinRateLabel = new Label(0, labelY, 1920, 50, "Coin toss  >>>  "
+		coinWinRateLabel = new Label(0, labelY, 1920, 50, "Coin toss win rate  >>>  "
 				+ "Wins: "+totalCoinWins+"  "
 				+ "|  Losses: "+totalCoinLosses+"  "
 				+ "|  ( "+totalCoinsThrow+" )  -  "+coinWinrate+"%"
@@ -109,19 +130,13 @@ public class ViewDataPanel implements ActionListener {
 		int totalDuelsGoingSecond = DataMiner.getUserTotalDuelsGoingSecond();
 		int totalDuelsAmount = totalDuelsGoingFirst+totalDuelsGoingSecond;
 		double goingFirstFrequency = DataMiner.getUserTotalGoingFirstFrequencyPercentage();
-		goingFirstFrequencyLabel = new Label(0, labelY, 1920, 50, "Coin toss  >>>  "
-				+ "Duels going first: "+totalDuelsGoingFirst+"  "
-				+ "|  Duels going second: "+totalDuelsGoingSecond+"  "
+		goingFirstFrequencyLabel = new Label(0, labelY, 1920, 50, "Play first frequency  >>>  "
+				+ "First: "+totalDuelsGoingFirst+"  "
+				+ "|  Second: "+totalDuelsGoingSecond+"  "
 				+ "|  ( "+totalDuelsAmount+" )  -  "+goingFirstFrequency+"%"
 				, 50, 200, 200, 255);
 		panel.add(goingFirstFrequencyLabel);
 		
-		
-		
-		
-		returnButton = new Button(865, 950, 190, 56, "RETURN",255,20,20,62);
-		returnButton.getJComponent().addActionListener(this);
-		panel.add(returnButton);
 		
 		bg = new JLabel();
 		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Backgrounds/bg1280x720.png"));
@@ -135,9 +150,24 @@ public class ViewDataPanel implements ActionListener {
 
 	}
 
+	private Long getSelectedDeckId() {
+		String selectedDeckName = deckComboBox.getJComponent().getSelectedItem().toString();
+		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
+		for (Deck deck : decksList) {
+			if (deck.getName().equals(selectedDeckName)) {
+				return deck.getId();
+			}
+		}
+		return null;	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == viewDeckStatsButton.getJComponent()) {
+
+		}
+
+			
 		if (e.getSource() == returnButton.getJComponent()) {
 			MenuPanel initialPanel = new MenuPanel(frame);
 			frame.getContentPane().removeAll();

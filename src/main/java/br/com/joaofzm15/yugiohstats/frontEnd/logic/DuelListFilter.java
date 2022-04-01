@@ -3,9 +3,15 @@ package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 
 public class DuelListFilter {
+	
+//	TODO
+	public static List<Duel> filterDuelsFromSpecificDeck(List<Duel> list, Long deckId){
+		return null;
+	}
 	
 	public static List<Duel> filterOnlyWins(List<Duel> list){
 		List<Duel> toBeReturned = new ArrayList<>();

@@ -127,7 +127,6 @@ public class AddDuelPanel implements ActionListener {
 	}
 
 	private void resetInputs() {
-//		deckComboBox.getJComponent().setSelectedItem(0);
 		duelWBox.getJComponent().setSelected(false);
 		duelLBox.getJComponent().setSelected(false);
 		coinWBox.getJComponent().setSelected(false);

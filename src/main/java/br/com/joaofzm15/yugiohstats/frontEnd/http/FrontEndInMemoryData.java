@@ -37,7 +37,6 @@ public class FrontEndInMemoryData {
 	
 	public static List<Duel> getAllDuelsFromUser() {
 		List<Duel> duels = new ArrayList<>();
-
 		List<Deck> decks = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
 		for (Deck deck : decks) {
 			List<Duel> deckDuels = deck.getDuels();

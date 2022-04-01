@@ -75,6 +75,7 @@ public class HttpController {
 	
 	public static List<Deck> parseJsonIntoDeck(HttpResponse<String> response) {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
 		List<Deck> decks = null;
         try {
         	decks = mapper.readValue(response.body(), new TypeReference<List<Deck>>() {});
@@ -86,6 +87,7 @@ public class HttpController {
 	
 	public static List<Duel> parseJsonIntoDuel(HttpResponse<String> response) {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
 		List<Duel> duels = null;
         try {
         	duels = mapper.readValue(response.body(), new TypeReference<List<Duel>>() {});

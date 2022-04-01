@@ -11,6 +11,7 @@ public class DataMiner {
 
 	
 	// ===============Final Info Methods=========================================
+	
 	public static int getUserTotalWins() {
 		List<Duel> allDuels = FrontEndInMemoryData.getAllDuelsFromUser();
 		List<Duel> onlyWins = DuelListFilter.filterOnlyWins(allDuels);

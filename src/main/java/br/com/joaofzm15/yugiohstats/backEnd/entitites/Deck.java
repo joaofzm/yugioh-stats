@@ -95,7 +95,7 @@ public class Deck implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "	DECK: ["+name+"]"+"[id: "+id+"]\n" + duels;
+		return name;
 	}
 
 	
