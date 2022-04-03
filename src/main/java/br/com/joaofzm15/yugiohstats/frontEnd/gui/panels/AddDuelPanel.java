@@ -52,7 +52,7 @@ public class AddDuelPanel implements ActionListener {
 	
 	private TextField turnsTextField;
 	
-	private ComboBox oppDecKComboBox;
+	private ComboBox oppDeckComboBox;
 	
 	private Button addDuelButton;
 	
@@ -101,10 +101,10 @@ public class AddDuelPanel implements ActionListener {
 		turnsTextField = new TextField(1115, 455, 100, 100, " turns", 40);
 		panel.add(turnsTextField);
 		
-		oppDecKComboBox = new ComboBox(1265, 455, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
+		oppDeckComboBox = new ComboBox(1265, 455, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
 		OppDeck[] items = OppDeck.values();
-		oppDecKComboBox.getJComponent().setModel(new DefaultComboBoxModel(items));
-		panel.add(oppDecKComboBox);
+		oppDeckComboBox.getJComponent().setModel(new DefaultComboBoxModel(items));
+		panel.add(oppDeckComboBox);
 		
 		addDuelButton = new Button(900, 720, 120, 56, "ADD", 50, 255, 50, 70);
 		addDuelButton.getJComponent().addActionListener(this);
@@ -134,7 +134,7 @@ public class AddDuelPanel implements ActionListener {
 		firstBox.getJComponent().setSelected(false);
 		secondBox.getJComponent().setSelected(false);
 		turnsTextField.resetToPlaceHolder();
-		oppDecKComboBox.getJComponent().setSelectedIndex(0);
+		oppDeckComboBox.getJComponent().setSelectedIndex(0);
 	}
 	
 	private boolean getInputFromTwoBoxes(CheckBox trueOutcome, CheckBox falseOutcome) {
@@ -178,11 +178,11 @@ public class AddDuelPanel implements ActionListener {
 	}
 	
 	private Integer getOppDeckIdFromComboBox() {
-		int selectedDeckIndex = oppDecKComboBox.getJComponent().getSelectedIndex();
+		int selectedDeckIndex = oppDeckComboBox.getJComponent().getSelectedIndex();
 		if (selectedDeckIndex==0) {
 			throw new FieldInputMismatchException("Please, pick the opponent deck!");
 		}
-		return oppDecKComboBox.getJComponent().getSelectedIndex();
+		return oppDeckComboBox.getJComponent().getSelectedIndex();
 	}
 	
 	private String getCurrentInstantInStringFormat() {

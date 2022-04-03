@@ -2,7 +2,7 @@ package br.com.joaofzm15.yugiohstats.backEnd.entitites.enums;
 
 public enum OppDeck {
 	
-	PICK_DECK (0),
+	ALL_DECKS (0),
 	IGNISTER(1),
 	ASSAULT_MODE(2),
 	ABC(3),

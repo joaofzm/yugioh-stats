@@ -3,10 +3,20 @@ package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
 
 public class DuelListFilter {
+	
+	public static List<Duel> filterOnlyAgainst(List<Duel> list, OppDeck oppDeck){
+		List<Duel> toBeReturned = new ArrayList<>();
+		for (Duel duel : list) {
+			if(duel.getOppDeck()==oppDeck) {
+				toBeReturned.add(duel);
+			}
+		}
+		return toBeReturned;
+	}
 	
 	public static List<Duel> filterOnlyWins(List<Duel> list){
 		List<Duel> toBeReturned = new ArrayList<>();

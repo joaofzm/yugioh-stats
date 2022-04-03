@@ -2,11 +2,13 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
@@ -98,7 +100,9 @@ public class MenuPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == viewDataButton.getJComponent()) {
-			ViewDataPanel initialPanel = new ViewDataPanel(frame);
+			ViewDataPanel initialPanel = new ViewDataPanel(frame
+					,FrontEndInMemoryData.getAllDuelsFromUser(),
+					"GENERAL STATS");
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 			frame.revalidate();

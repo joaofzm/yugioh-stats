@@ -1,11 +1,8 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaofzm15.yugiohstats.backEnd.entitites.Deck;
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
-import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 
 public class DataMiner {
 

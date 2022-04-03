@@ -2,14 +2,9 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.components;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
-import javax.swing.JTextField;
 
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 
