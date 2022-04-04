@@ -12,16 +12,7 @@ public class FrontEndInMemoryData {
 	
 	public static Player currentlyLoggedPlayer;
 	
-//	public static Deck currentlyViewdDeck;
-//	
-//	public static Deck viewDeck(Deck deck) {
-//		currentlyViewdDeck=deck;
-//		return currentlyViewdDeck;
-//	}
-//	
-//	public static void stopViewingDeck() {
-//		currentlyViewdDeck=null;
-//	}
+	public static int filteredSeason = 0;
 	
 	public static Player logIn(String username) {
 		HttpResponse<String> response = HttpController.getHttpResponseFromUrl("http://localhost:8080/players/");

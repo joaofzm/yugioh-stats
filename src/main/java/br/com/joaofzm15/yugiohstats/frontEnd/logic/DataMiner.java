@@ -1,5 +1,6 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
@@ -8,6 +9,29 @@ public class DataMiner {
 
 	
 	// ===============Final Info Methods=========================================
+	
+	public static int getTotalTurnsFromDuelsWithTurnCount(List<Duel> list) {
+		int totalTurns = 0;
+		for (Duel duel : list) {
+			if (duel.getTurns()!=0) {
+				totalTurns+=duel.getTurns();
+			}
+		}
+		return totalTurns;
+	}
+	
+	public static int getAmountOfDuelsWithTurnCount(List<Duel> list) {
+		List<Duel> duelsWithTurnCount = new ArrayList<>();
+		for (Duel duel : list) {
+			if (duel.getTurns()!=0) {
+				duelsWithTurnCount.add(duel);
+			}
+		}
+		return duelsWithTurnCount.size();
+	}
+	
+	
+	
 	
 	public static int getTotalWins(List<Duel> list) {
 		List<Duel> onlyWins = DuelListFilter.filterOnlyWins(list);

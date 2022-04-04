@@ -13,4 +13,10 @@ public class Calculator {
 		return toBeReturned;
 	}
 	
+	public static double calculateAverage(int turns, int totalDuels) {
+		double turnsToDouble = (double) turns;
+		double totalToDouble = (double) totalDuels;
+		return turnsToDouble/totalToDouble;
+	}
+	
 }

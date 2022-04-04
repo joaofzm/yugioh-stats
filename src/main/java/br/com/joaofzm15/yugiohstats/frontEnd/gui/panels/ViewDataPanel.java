@@ -2,8 +2,10 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -19,6 +21,7 @@ import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
+import br.com.joaofzm15.yugiohstats.frontEnd.logic.Calculator;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DataMiner;
 import br.com.joaofzm15.yugiohstats.frontEnd.logic.DuelListFilter;
 
@@ -31,6 +34,9 @@ public class ViewDataPanel implements ActionListener {
 	
 	private JLabel bg;
 	
+	private ComboBox seasonComboBox;
+	private Button filterSeasonButton;
+
 	private Label titleLabel;
 
 	private ComboBox deckComboBox;
@@ -52,10 +58,26 @@ public class ViewDataPanel implements ActionListener {
 	public ViewDataPanel(JFrame frame, List<Duel> parameterList, String title) {
 		
 		this.frame=frame;
+		
+		List<Duel> listFilteredOnlySelectedSeason = DuelListFilter.filterOnlyFromSelectedSeason(parameterList);
 
 		panel = new Panel(1920,1080);
 		
-		titleLabel = new Label(0, 70, 1920, 130, title, 130, 200, 200, 255);
+		seasonComboBox = new ComboBox(35, 85, 300, 100, "x", 255, 255, 255, 50, 50, 120, 28);
+		List<String> seasonComboBoxListOfItems = new ArrayList<>();
+		seasonComboBoxListOfItems.add("All Seasons");
+		for (int i=1; i<11; i++) {
+			seasonComboBoxListOfItems.add("Season "+i);
+		}
+		seasonComboBox.getJComponent().setModel(new DefaultComboBoxModel(seasonComboBoxListOfItems.toArray()));
+		seasonComboBox.getJComponent().setSelectedIndex(FrontEndInMemoryData.filteredSeason);
+		panel.add(seasonComboBox);
+		
+		filterSeasonButton = new Button(85, 198, 180, 56, "FILTER",150,150,255,62);
+		filterSeasonButton.getJComponent().addActionListener(this);
+		panel.add(filterSeasonButton);
+		
+		titleLabel = new Label(100, 70, 1920, 130, title, 70, 200, 200, 255);
 		panel.add(titleLabel);
 		
 		deckComboBox = new ComboBox(355, 785, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
@@ -81,71 +103,88 @@ public class ViewDataPanel implements ActionListener {
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
 		
-		
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	    DecimalFormat df = new DecimalFormat("0.000");
 		//===============================================
 		int labelY = 270;
 		//===============================================
-		int totalWins = DataMiner.getTotalWins(parameterList);
-		int totalLosses = DataMiner.getTotalLosses(parameterList);
+		int totalWins = DataMiner.getTotalWins(listFilteredOnlySelectedSeason);
+		int totalLosses = DataMiner.getTotalLosses(listFilteredOnlySelectedSeason);
 		int totalDuels = totalWins+totalLosses;
-		double winrate = DataMiner.getTotalWinRate(parameterList);
+		double winrate = DataMiner.getTotalWinRate(listFilteredOnlySelectedSeason);
+		int totalTurnsFromDuelsWithTurnCount = DataMiner.getTotalTurnsFromDuelsWithTurnCount(listFilteredOnlySelectedSeason);
+		int totalDuelsWithTurnCount = DataMiner.getAmountOfDuelsWithTurnCount(listFilteredOnlySelectedSeason);
+		double avgTurns = Calculator.calculateAverage(totalTurnsFromDuelsWithTurnCount, totalDuelsWithTurnCount);
 		winRateLabel = new Label(0, labelY, 1920, 50, "Total  >>>  "
 				+ "Wins: "+totalWins+"  "
 				+ "|  Losses: "+totalLosses+"  "
-				+ "|  ( "+totalDuels+" )  -  "+winrate+"%"
+				+ "|  ( "+totalDuels+" )  -  "+df.format(winrate)+"%  "
+				+ "|  Avg. Turns: "+df.format(avgTurns)
 				, 50, 200, 200, 255);
 		panel.add(winRateLabel);
 		//===============================================
 		labelY+=110;
 		//===============================================
-		int totalFirstWins = DataMiner.getTotalWinsGoingFirst(parameterList);
-		int totalFirstLosses = DataMiner.getTotalLossesGoingFirst(parameterList);
+		List<Duel> duelsGoingFirst = DuelListFilter.filterOnlyWentFirst(listFilteredOnlySelectedSeason);
+		int totalFirstWins = DataMiner.getTotalWinsGoingFirst(duelsGoingFirst);
+		int totalFirstLosses = DataMiner.getTotalLossesGoingFirst(duelsGoingFirst);
 		int totalFirstDuels = totalFirstWins+totalFirstLosses;
-		double firstWinrate = DataMiner.getTotalWinRateGoingFirst(parameterList);
+		double firstWinrate = DataMiner.getTotalWinRateGoingFirst(duelsGoingFirst);
+		int totalTurnsFromDuelsWithTurnCountFirst = DataMiner.getTotalTurnsFromDuelsWithTurnCount(duelsGoingFirst);
+		int totalDuelsWithTurnCountFirst = DataMiner.getAmountOfDuelsWithTurnCount(duelsGoingFirst);
+		double avgTurnsFirst = Calculator.calculateAverage(totalTurnsFromDuelsWithTurnCountFirst, totalDuelsWithTurnCountFirst);
+		
 		goingFirstWinRateLabel = new Label(0, labelY, 1920, 50, "Going Fist  >>>  "
 				+ "Wins: "+totalFirstWins+"  "
 				+ "|  Losses: "+totalFirstLosses+"  "
-				+ "|  ( "+totalFirstDuels+" )  -  "+firstWinrate+"%"
+				+ "|  ( "+totalFirstDuels+" )  -  "+df.format(firstWinrate)+"%  "
+				+ "|  Avg. Turns: "+df.format(avgTurnsFirst)
+
 				, 50, 200, 200, 255);
 		panel.add(goingFirstWinRateLabel);
 		//===============================================
 		labelY+=75;
 		//===============================================
-		int totalSecondWins = DataMiner.getTotalWinsGoingSecond(parameterList);
-		int totalSecondLosses = DataMiner.getTotalLossesGoingSecond(parameterList);
+		List<Duel> duelsGoingSecond = DuelListFilter.filterOnlyWentSecond(listFilteredOnlySelectedSeason);
+		int totalSecondWins = DataMiner.getTotalWinsGoingSecond(duelsGoingSecond);
+		int totalSecondLosses = DataMiner.getTotalLossesGoingSecond(duelsGoingSecond);
 		int totalSecondDuels = totalSecondWins+totalSecondLosses;
-		double secondWinrate = DataMiner.getTotalWinRateGoingSecond(parameterList);
+		double secondWinrate = DataMiner.getTotalWinRateGoingSecond(duelsGoingSecond);
+		int totalTurnsFromDuelsWithTurnCountSecond = DataMiner.getTotalTurnsFromDuelsWithTurnCount(duelsGoingSecond);
+		int totalDuelsWithTurnCountSecond = DataMiner.getAmountOfDuelsWithTurnCount(duelsGoingSecond);
+		double avgTurnsSecond = Calculator.calculateAverage(totalTurnsFromDuelsWithTurnCountSecond, totalDuelsWithTurnCountSecond);
 		goingSecondWinRateLabel = new Label(0, labelY, 1920, 50, "Going Second  >>>  "
 				+ "Wins: "+totalSecondWins+"  "
 				+ "|  Losses: "+totalSecondLosses+"  "
-				+ "|  ( "+totalSecondDuels+" )  -  "+secondWinrate+"%"
+				+ "|  ( "+totalSecondDuels+" )  -  "+df.format(secondWinrate)+"%  "
+				+ "|  Avg. Turns: "+df.format(avgTurnsSecond)
+
 				, 50, 200, 200, 255);
 		panel.add(goingSecondWinRateLabel);
 		//===============================================
 		labelY+=110;
 		//===============================================
-		int totalCoinWins = DataMiner.getTotalCoinWins(parameterList);
-		int totalCoinLosses = DataMiner.getTotalCoinLosses(parameterList);
+		int totalCoinWins = DataMiner.getTotalCoinWins(listFilteredOnlySelectedSeason);
+		int totalCoinLosses = DataMiner.getTotalCoinLosses(listFilteredOnlySelectedSeason);
 		int totalCoinsThrow = totalCoinWins+totalCoinLosses;
-		double coinWinrate = DataMiner.getTotalCoinWinRate(parameterList);
+		double coinWinrate = DataMiner.getTotalCoinWinRate(listFilteredOnlySelectedSeason);
 		coinWinRateLabel = new Label(0, labelY, 1920, 50, "Coin toss win rate  >>>  "
 				+ "Wins: "+totalCoinWins+"  "
 				+ "|  Losses: "+totalCoinLosses+"  "
-				+ "|  ( "+totalCoinsThrow+" )  -  "+coinWinrate+"%"
+				+ "|  ( "+totalCoinsThrow+" )  -  "+df.format(coinWinrate)+"%"
 				, 50, 200, 200, 255);
 		panel.add(coinWinRateLabel);
 		//===============================================
 		labelY+=75;
 		//===============================================
-		int totalDuelsGoingFirst = DataMiner.getTotalDuelsGoingFirst(parameterList);
-		int totalDuelsGoingSecond = DataMiner.getTotalDuelsGoingSecond(parameterList);
+		int totalDuelsGoingFirst = DataMiner.getTotalDuelsGoingFirst(listFilteredOnlySelectedSeason);
+		int totalDuelsGoingSecond = DataMiner.getTotalDuelsGoingSecond(listFilteredOnlySelectedSeason);
 		int totalDuelsAmount = totalDuelsGoingFirst+totalDuelsGoingSecond;
-		double goingFirstFrequency = DataMiner.getTotalGoingFirstFrequencyPercentage(parameterList);
+		double goingFirstFrequency = DataMiner.getTotalGoingFirstFrequencyPercentage(listFilteredOnlySelectedSeason);
 		goingFirstFrequencyLabel = new Label(0, labelY, 1920, 50, "Play first frequency  >>>  "
 				+ "First: "+totalDuelsGoingFirst+"  "
 				+ "|  Second: "+totalDuelsGoingSecond+"  "
-				+ "|  ( "+totalDuelsAmount+" )  -  "+goingFirstFrequency+"%"
+				+ "|  ( "+totalDuelsAmount+" )  -  "+df.format(goingFirstFrequency)+"%"
 				, 50, 200, 200, 255);
 		panel.add(goingFirstFrequencyLabel);
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -185,6 +224,24 @@ public class ViewDataPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if (e.getSource() == filterSeasonButton.getJComponent()) {
+			String selectedSeason = seasonComboBox.getJComponent().getSelectedItem().toString();
+			if (selectedSeason.equalsIgnoreCase("All Seasons")) {
+				FrontEndInMemoryData.filteredSeason = 0;
+			} else {
+				String[] splitted = selectedSeason.split(" ");
+				FrontEndInMemoryData.filteredSeason = Integer.valueOf(splitted[1]);
+			}
+			
+			ViewDataPanel initialPanel = new ViewDataPanel(frame
+					,FrontEndInMemoryData.getAllDuelsFromUser(),
+					"All decks  vs  All decks");
+			frame.getContentPane().removeAll();
+			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
+			frame.revalidate();
+			initialPanel.getPanel().getJComponent().repaint();
+		}
+		
 		if (e.getSource() == viewDeckStatsButton.getJComponent()) {
 			
 			List<Duel> allDuelsFromSelectedDeck ;
@@ -223,7 +280,6 @@ public class ViewDataPanel implements ActionListener {
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 			frame.revalidate();
 			initialPanel.getPanel().getJComponent().repaint();
-	
 		}
 			
 		
