@@ -3,7 +3,6 @@ package br.com.joaofzm15.yugiohstats.frontEnd.gui.panels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -38,7 +37,6 @@ public class ViewDataPanel implements ActionListener {
 	private Button viewDeckStatsButton;
 	
 	private ComboBox oppDeckComboBox;
-	private Button viewAgainstThisDeckButton;
 	
 	private Button returnButton;
 	
@@ -70,7 +68,7 @@ public class ViewDataPanel implements ActionListener {
 		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(copyOfDecksList.toArray()));
 		panel.add(deckComboBox);
 		
-		viewDeckStatsButton = new Button(690, 810, 420, 56, "FILTER ONLY FROM SELECTED DECK",50,200,50,32);
+		viewDeckStatsButton = new Button(690, 870, 190, 56, "FILTER",50,200,50,62);
 		viewDeckStatsButton.getJComponent().addActionListener(this);
 		panel.add(viewDeckStatsButton);
 		
@@ -79,11 +77,7 @@ public class ViewDataPanel implements ActionListener {
 		oppDeckComboBox.getJComponent().setModel(new DefaultComboBoxModel(items));
 		panel.add(oppDeckComboBox);
 		
-		viewAgainstThisDeckButton = new Button(690, 940, 465, 56, "FILTER ONLY AGAINST SELECTED DECK",200,50,50,32);
-		viewAgainstThisDeckButton.getJComponent().addActionListener(this);
-		panel.add(viewAgainstThisDeckButton);
-		
-		returnButton = new Button(1300, 860, 190, 56, "RETURN",255,20,20,62);
+		returnButton = new Button(1300, 870, 200, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
 		
@@ -183,6 +177,11 @@ public class ViewDataPanel implements ActionListener {
 		return (OppDeck) oppDeckComboBox.getJComponent().getSelectedItem();
 	}
 	
+	//TODO
+	private String formatOppDeckString(OppDeck oppDeck) {
+		return oppDeck.toString();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -197,10 +196,11 @@ public class ViewDataPanel implements ActionListener {
 					allDuelsFromSelectedDeck=DuelListFilter.filterOnlyAgainst(
 							FrontEndInMemoryData.getAllDuelsFromUser(),
 							getSelectedOppDeck());
-					initialPanel = new ViewDataPanel(frame,allDuelsFromSelectedDeck,"All decks vs "+getSelectedOppDeck());
+					initialPanel = new ViewDataPanel(frame,allDuelsFromSelectedDeck,
+							"All decks  vs  "+formatOppDeckString(getSelectedOppDeck()));
 				} else {
 					allDuelsFromSelectedDeck=FrontEndInMemoryData.getAllDuelsFromUser();
-					initialPanel = new ViewDataPanel(frame,allDuelsFromSelectedDeck,"All decks vs All decks");
+					initialPanel = new ViewDataPanel(frame,allDuelsFromSelectedDeck,"All decks  vs  All decks");
 				}
 				
 			
@@ -211,11 +211,11 @@ public class ViewDataPanel implements ActionListener {
 							getSelectedDeck().getDuels(),
 							getSelectedOppDeck());
 					initialPanel = new ViewDataPanel(frame
-							,allDuelsFromSelectedDeck,getSelectedDeck().getName()+" vs "+getSelectedOppDeck());
+							,allDuelsFromSelectedDeck,getSelectedDeck().getName()+"  vs  "+formatOppDeckString(getSelectedOppDeck()));
 				} else {
 					allDuelsFromSelectedDeck=getSelectedDeck().getDuels();
 					initialPanel = new ViewDataPanel(frame
-							,allDuelsFromSelectedDeck, getSelectedDeck().getName()+" vs All Decks");
+							,allDuelsFromSelectedDeck, getSelectedDeck().getName()+"  vs  All Decks");
 				}
 		
 			}

@@ -102,7 +102,7 @@ public class MenuPanel implements ActionListener {
 		if (e.getSource() == viewDataButton.getJComponent()) {
 			ViewDataPanel initialPanel = new ViewDataPanel(frame
 					,FrontEndInMemoryData.getAllDuelsFromUser(),
-					"GENERAL STATS");
+					"All decks  vs  All decks");
 			frame.getContentPane().removeAll();
 			frame.getContentPane().add(initialPanel.getPanel().getJComponent());
 			frame.revalidate();
