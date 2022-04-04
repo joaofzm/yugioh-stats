@@ -207,7 +207,8 @@ public enum OppDeck {
 	Zoodiac_generaider(202),
 	Zoodiac_kaiju(203),
 	Zoodiac_tri_brigade(204),
-	Zoodiac_tri_brigade_eldlich(205);
+	Zoodiac_tri_brigade_eldlich(205),
+	Unknown(206);
 	
 	private int code;
 

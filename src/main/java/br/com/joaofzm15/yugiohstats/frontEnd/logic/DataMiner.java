@@ -1,5 +1,6 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
 
 public class DataMiner {
 
-	
 	// ===============Final Info Methods=========================================
 	
 	public static int getTotalTurnsFromDuelsWithTurnCount(List<Duel> list) {

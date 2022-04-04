@@ -63,7 +63,7 @@ public class ViewDataPanel implements ActionListener {
 
 		panel = new Panel(1920,1080);
 		
-		seasonComboBox = new ComboBox(35, 85, 300, 100, "x", 255, 255, 255, 50, 50, 120, 28);
+		seasonComboBox = new ComboBox(25, 25, 300, 100, "x", 255, 255, 255, 50, 50, 120, 28);
 		List<String> seasonComboBoxListOfItems = new ArrayList<>();
 		seasonComboBoxListOfItems.add("All Seasons");
 		for (int i=1; i<11; i++) {
@@ -73,7 +73,7 @@ public class ViewDataPanel implements ActionListener {
 		seasonComboBox.getJComponent().setSelectedIndex(FrontEndInMemoryData.filteredSeason);
 		panel.add(seasonComboBox);
 		
-		filterSeasonButton = new Button(85, 198, 180, 56, "FILTER",150,150,255,62);
+		filterSeasonButton = new Button(75, 138, 180, 56, "FILTER",150,150,255,62);
 		filterSeasonButton.getJComponent().addActionListener(this);
 		panel.add(filterSeasonButton);
 		
@@ -216,9 +216,9 @@ public class ViewDataPanel implements ActionListener {
 		return (OppDeck) oppDeckComboBox.getJComponent().getSelectedItem();
 	}
 	
-	//TODO
 	private String formatOppDeckString(OppDeck oppDeck) {
-		return oppDeck.toString();
+		String oppDeckToString = oppDeck.toString();
+		return oppDeckToString.replace("_", " ");
 	}
 	
 	@Override

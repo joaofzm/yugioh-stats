@@ -9,6 +9,8 @@ import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
 
 public class DuelListFilter {
+	
+	private static final Instant minDateForCoinAndFirstSecond = Instant.parse("2022-03-10T00:00:00Z");
 
 	public static List<Duel> filterOnlyFromSelectedSeason(List<Duel> list) {
 		List<Duel> toBeReturned = new ArrayList<>();
@@ -112,7 +114,7 @@ public class DuelListFilter {
 	public static List<Duel> filterOnlyWonCoin(List<Duel> list) {
 		List<Duel> toBeReturned = new ArrayList<>();
 		for (Duel duel : list) {
-			if (duel.isCoinResult()) {
+			if (duel.isCoinResult() && duel.getDate().isAfter(minDateForCoinAndFirstSecond)) {
 				toBeReturned.add(duel);
 			}
 		}
@@ -122,7 +124,7 @@ public class DuelListFilter {
 	public static List<Duel> filterOnlyLostCoin(List<Duel> list) {
 		List<Duel> toBeReturned = new ArrayList<>();
 		for (Duel duel : list) {
-			if (!duel.isCoinResult()) {
+			if (!duel.isCoinResult() && duel.getDate().isAfter(minDateForCoinAndFirstSecond)) {
 				toBeReturned.add(duel);
 			}
 		}
@@ -132,7 +134,7 @@ public class DuelListFilter {
 	public static List<Duel> filterOnlyWentFirst(List<Duel> list) {
 		List<Duel> toBeReturned = new ArrayList<>();
 		for (Duel duel : list) {
-			if (duel.isFirst()) {
+			if (duel.isFirst() && duel.getDate().isAfter(minDateForCoinAndFirstSecond)) {
 				toBeReturned.add(duel);
 			}
 		}
@@ -142,7 +144,7 @@ public class DuelListFilter {
 	public static List<Duel> filterOnlyWentSecond(List<Duel> list) {
 		List<Duel> toBeReturned = new ArrayList<>();
 		for (Duel duel : list) {
-			if (!duel.isFirst()) {
+			if (!duel.isFirst() && duel.getDate().isAfter(minDateForCoinAndFirstSecond)) {
 				toBeReturned.add(duel);
 			}
 		}
