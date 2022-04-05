@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
@@ -16,7 +16,7 @@ public class DataMiner {
 
 	// ===============Final Info Methods=========================================
 	public static LinkedHashMap<OppDeck, Double> getLinkedHashMapOfMatchupsAndWinrates(List<Duel> list){
-		//Only saves match up if there ara more than 5 duels against that deck
+		//Only saves matchup if there are more than 5 duels against that deck
 		OppDeck[] allOppDeckArray = OppDeck.values();
 		List<OppDeck> allOppDeckList = Arrays.asList(allOppDeckArray);
 		
@@ -25,9 +25,13 @@ public class DataMiner {
 		for (OppDeck oppDeck : allOppDeckList) {
 			List<Duel> duelsAgainstThisDeck = DuelListFilter.filterOnlyAgainst(list, oppDeck);
 			double winrate = DataMiner.getTotalWinRate(duelsAgainstThisDeck);
-//			if (duelsAgainstThisDeck.size()>=5) {
+			if (duelsAgainstThisDeck.size()>=5) {
 				allMatchupsAndWinrates.put(oppDeck, winrate);
-//			}
+			}
+		}
+		//Add filler matchups if less than 4 to avoid a IndexOutOfBounds exceptions at ViewDataPanel
+		if(allMatchupsAndWinrates.size()<4) {
+			allMatchupsAndWinrates.put(OppDeck.FAKE_DECK, Double.NaN);
 		}
 		List<Double> test =  new ArrayList<>(allMatchupsAndWinrates.values());
 		return allMatchupsAndWinrates;
@@ -45,7 +49,26 @@ public class DataMiner {
  	}
 	
 	public static LinkedHashMap<OppDeck, Double> sortLinkedHashMapByBestWinRate(LinkedHashMap<OppDeck, Double> map){
-		return null;
+		HashMap<OppDeck,Double> newMap = new HashMap<>();
+		
+		LinkedHashMap<OppDeck, Double> sortedMap = 
+				map.entrySet().stream()
+			    .sorted(Entry.comparingByValue())
+			    .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+			                              (e1, e2) -> e1, LinkedHashMap::new));
+		//Reverse The Map Here
+		List<OppDeck> sortedMapKeys = new ArrayList<>(sortedMap.keySet());
+		LinkedHashMap<OppDeck, Double> reversedSortedMap = new LinkedHashMap<>();
+		for(int i=sortedMapKeys.size()-1;i>=0;i--) {
+			if (!sortedMap.get(sortedMapKeys.get(i)).isNaN()) {
+				reversedSortedMap.put(sortedMapKeys.get(i), sortedMap.get(sortedMapKeys.get(i)));
+			}
+		}
+		//Add filler matchups if less than 4 to avoid a IndexOutOfBounds exceptions at ViewDataPanel
+		if(reversedSortedMap.size()<4) {
+			reversedSortedMap.put(OppDeck.FAKE_DECK, Double.NaN);
+		}
+		return reversedSortedMap;
 	}
 	
 	

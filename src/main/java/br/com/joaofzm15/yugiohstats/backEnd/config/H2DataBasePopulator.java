@@ -57,11 +57,23 @@ public class H2DataBasePopulator implements CommandLineRunner {
 		Duel duel16 = new Duel(null, d1, true, true, true, OppDeck.Adamancipator, 9, Instant.parse("2022-07-26T03:15:56Z"));
 		Duel duel17 = new Duel(null, d1, true, false, true, OppDeck.Dragonmaid, 16, Instant.parse("2022-07-26T03:15:56Z"));
 		Duel duel18 = new Duel(null, d1, true, false, true, OppDeck.Numeron, 3, Instant.parse("2022-08-26T03:15:56Z"));
+		
+		Duel duel19 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel20 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel21 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel22 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel23 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel24 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel25 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel26 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel27 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+
 
 		playerRepository.saveAll(Arrays.asList(p1, p2));
 		deckRepository.saveAll(Arrays.asList(d1, d2, d3));
 		duelRepository.saveAll(Arrays.asList(duel1, duel2, duel3, duel4,
 				duel5, duel6, duel7, duel8, duel9, duel10, duel11,duel12,
-				duel13,duel14,duel15,duel16,duel17,duel18));
+				duel13,duel14,duel15,duel16,duel17,duel18,duel19,duel20,duel21,duel22,duel23
+				,duel24,duel25,duel26,duel27));
 	}
 }

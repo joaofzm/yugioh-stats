@@ -68,9 +68,18 @@ public class ViewDataPanel implements ActionListener {
 		int yAxis = 780;
 		Label bestWinRates = new Label(530, 720, 550, 100, "-Best Matchups-", 40, 200, 200, 255);
 		panel.add(bestWinRates);
+		
+		LinkedHashMap<OppDeck,Double> bestMatchupsMap = DataMiner.sortLinkedHashMapByBestWinRate(
+				DataMiner.getLinkedHashMapOfMatchupsAndWinrates(listFilteredOnlySelectedSeason));
 		for (int i = 0; i<4; i++) {
-			Label bestWr1 = new Label(530, yAxis, 550, 100, "VeryBigDeckName1234: 77%", 40, 200, 200, 255);
-			panel.add(bestWr1);
+			List<OppDeck> keys = new ArrayList<>(bestMatchupsMap.keySet());
+			if(Double.isNaN(bestMatchupsMap.get(keys.get(i)))) {
+				break;
+			}
+			
+			Label worstWr = new Label(530, yAxis, 550, 100,
+					keys.get(i).toString()+" "+bestMatchupsMap.get(keys.get(i))+"%", 40, 200, 200, 255);
+			panel.add(worstWr);
 			yAxis+= 60;
 		}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
