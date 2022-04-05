@@ -4,8 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -62,6 +63,37 @@ public class ViewDataPanel implements ActionListener {
 		List<Duel> listFilteredOnlySelectedSeason = DuelListFilter.filterOnlyFromSelectedSeason(parameterList);
 
 		panel = new Panel(1920,1080);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		int yAxis = 780;
+		Label bestWinRates = new Label(530, 720, 550, 100, "-Best Matchups-", 40, 200, 200, 255);
+		panel.add(bestWinRates);
+		for (int i = 0; i<4; i++) {
+			Label bestWr1 = new Label(530, yAxis, 550, 100, "VeryBigDeckName1234: 77%", 40, 200, 200, 255);
+			panel.add(bestWr1);
+			yAxis+= 60;
+		}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		yAxis = 780;
+		Label worseWinRates = new Label(1080, 720, 550, 100, "-Worse Matchups-", 40, 200, 200, 255);
+		panel.add(worseWinRates);
+		
+		LinkedHashMap<OppDeck,Double> worseMatchupsMap = DataMiner.sortLinkedHashMapByWorseWinRate(
+				DataMiner.getLinkedHashMapOfMatchupsAndWinrates(listFilteredOnlySelectedSeason));
+		for (int i = 0; i<4; i++) {
+			List<OppDeck> keys = new ArrayList<>(worseMatchupsMap.keySet());
+			if(Double.isNaN(worseMatchupsMap.get(keys.get(i)))) {
+				break;
+			}
+			
+			Label worstWr = new Label(1080, yAxis, 590, 100,
+					keys.get(i).toString()+" "+worseMatchupsMap.get(keys.get(i))+"%", 40, 200, 200, 255);
+			panel.add(worstWr);
+			yAxis+= 60;
+		}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 		
 		seasonComboBox = new ComboBox(25, 25, 300, 100, "x", 255, 255, 255, 50, 50, 120, 28);
 		List<String> seasonComboBoxListOfItems = new ArrayList<>();
@@ -80,7 +112,7 @@ public class ViewDataPanel implements ActionListener {
 		titleLabel = new Label(100, 70, 1920, 130, title, 70, 200, 200, 255);
 		panel.add(titleLabel);
 		
-		deckComboBox = new ComboBox(355, 785, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
+		deckComboBox = new ComboBox(25, 830, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
 		List<Deck> decksList = FrontEndInMemoryData.currentlyLoggedPlayer.getDecks();
 		List<Deck> copyOfDecksList = new ArrayList<>();
 		for (Deck deck : decksList) {
@@ -90,16 +122,16 @@ public class ViewDataPanel implements ActionListener {
 		deckComboBox.getJComponent().setModel(new DefaultComboBoxModel(copyOfDecksList.toArray()));
 		panel.add(deckComboBox);
 		
-		viewDeckStatsButton = new Button(690, 870, 190, 56, "FILTER",50,200,50,62);
+		viewDeckStatsButton = new Button(360, 915, 190, 56, "FILTER",50,200,50,62);
 		viewDeckStatsButton.getJComponent().addActionListener(this);
 		panel.add(viewDeckStatsButton);
 		
-		oppDeckComboBox = new ComboBox(355, 915, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
+		oppDeckComboBox = new ComboBox(25, 960, 300, 100, "x", 255, 255, 255, 120, 50, 50, 28);
 		OppDeck[] items = OppDeck.values();
 		oppDeckComboBox.getJComponent().setModel(new DefaultComboBoxModel(items));
 		panel.add(oppDeckComboBox);
 		
-		returnButton = new Button(1300, 870, 200, 56, "RETURN",255,20,20,62);
+		returnButton = new Button(1680, 980, 200, 56, "RETURN",255,20,20,62);
 		returnButton.getJComponent().addActionListener(this);
 		panel.add(returnButton);
 		
@@ -243,7 +275,6 @@ public class ViewDataPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == viewDeckStatsButton.getJComponent()) {
-			
 			List<Duel> allDuelsFromSelectedDeck ;
 			ViewDataPanel initialPanel;
 			

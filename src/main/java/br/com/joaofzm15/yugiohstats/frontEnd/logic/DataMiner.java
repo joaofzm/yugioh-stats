@@ -1,14 +1,54 @@
 package br.com.joaofzm15.yugiohstats.frontEnd.logic;
 
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import br.com.joaofzm15.yugiohstats.backEnd.entitites.Duel;
+import br.com.joaofzm15.yugiohstats.backEnd.entitites.enums.OppDeck;
 
 public class DataMiner {
 
 	// ===============Final Info Methods=========================================
+	public static LinkedHashMap<OppDeck, Double> getLinkedHashMapOfMatchupsAndWinrates(List<Duel> list){
+		//Only saves match up if there ara more than 5 duels against that deck
+		OppDeck[] allOppDeckArray = OppDeck.values();
+		List<OppDeck> allOppDeckList = Arrays.asList(allOppDeckArray);
+		
+		LinkedHashMap<OppDeck,Double> allMatchupsAndWinrates = new LinkedHashMap<>();
+		
+		for (OppDeck oppDeck : allOppDeckList) {
+			List<Duel> duelsAgainstThisDeck = DuelListFilter.filterOnlyAgainst(list, oppDeck);
+			double winrate = DataMiner.getTotalWinRate(duelsAgainstThisDeck);
+//			if (duelsAgainstThisDeck.size()>=5) {
+				allMatchupsAndWinrates.put(oppDeck, winrate);
+//			}
+		}
+		List<Double> test =  new ArrayList<>(allMatchupsAndWinrates.values());
+		return allMatchupsAndWinrates;
+	}
+	
+	public static LinkedHashMap<OppDeck, Double> sortLinkedHashMapByWorseWinRate(LinkedHashMap<OppDeck, Double> map){
+		HashMap<OppDeck,Double> newMap = new HashMap<>();
+		
+		LinkedHashMap<OppDeck, Double> sortedMap = 
+				map.entrySet().stream()
+			    .sorted(Entry.comparingByValue())
+			    .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+			                              (e1, e2) -> e1, LinkedHashMap::new));
+		return sortedMap;
+ 	}
+	
+	public static LinkedHashMap<OppDeck, Double> sortLinkedHashMapByBestWinRate(LinkedHashMap<OppDeck, Double> map){
+		return null;
+	}
+	
+	
 	
 	public static int getTotalTurnsFromDuelsWithTurnCount(List<Duel> list) {
 		int totalTurns = 0;
