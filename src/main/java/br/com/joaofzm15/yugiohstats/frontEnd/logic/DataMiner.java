@@ -23,6 +23,11 @@ public class DataMiner {
 		LinkedHashMap<OppDeck,Double> allMatchupsAndWinrates = new LinkedHashMap<>();
 		
 		for (OppDeck oppDeck : allOppDeckList) {
+			//If Unkown skip loop
+			if(oppDeck==OppDeck.Unknown) {
+				continue;
+			}
+			
 			List<Duel> duelsAgainstThisDeck = DuelListFilter.filterOnlyAgainst(list, oppDeck);
 			double winrate = DataMiner.getTotalWinRate(duelsAgainstThisDeck);
 			if (duelsAgainstThisDeck.size()>=5) {

@@ -63,6 +63,15 @@ public class ViewDataPanel implements ActionListener {
 		List<Duel> listFilteredOnlySelectedSeason = DuelListFilter.filterOnlyFromSelectedSeason(parameterList);
 
 		panel = new Panel(1920,1080);
+		
+		Label disclaimer = new Label(340, 10, 1110, 33,
+				"*Duels from before March 10th 2022 do not contain info on coin tosses and who went first! ", 30, 200, 200, 255);
+		panel.add(disclaimer);
+		
+		Label disclaimer2 = new Label(351, 50, 865, 33,
+				"*Duels from before Season 4 do not contain info on the amount of turns! ", 30, 200, 200, 255);
+		panel.add(disclaimer2);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		int yAxis = 780;
@@ -118,7 +127,7 @@ public class ViewDataPanel implements ActionListener {
 		filterSeasonButton.getJComponent().addActionListener(this);
 		panel.add(filterSeasonButton);
 		
-		titleLabel = new Label(100, 70, 1920, 130, title, 70, 200, 200, 255);
+		titleLabel = new Label(100, 120, 1920, 130, title, 70, 200, 200, 255);
 		panel.add(titleLabel);
 		
 		deckComboBox = new ComboBox(25, 830, 300, 100, "x", 255, 255, 255, 50, 120, 50, 28);
