@@ -16,6 +16,7 @@ import br.com.joaofzm15.yugiohstats.backEnd.entitites.Player;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Button;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Label;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.Panel;
+import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.PasswordField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.components.TextField;
 import br.com.joaofzm15.yugiohstats.frontEnd.gui.config.Config;
 import br.com.joaofzm15.yugiohstats.frontEnd.http.FrontEndInMemoryData;
@@ -32,7 +33,7 @@ public class RegisterAccountPanel implements ActionListener {
 	private JLabel bg;
 
 	private TextField usernameTextField;
-	private TextField passwordTextField;
+	private PasswordField passwordTextField;
 
 	private Button registerButton;
 	private Button returnButton;
@@ -54,7 +55,7 @@ public class RegisterAccountPanel implements ActionListener {
 		usernameTextField.getJComponent().addActionListener(this);
 		panel.add(usernameTextField);
 
-		passwordTextField = new TextField(828, 550, 264, 56, "                  password", 28);
+		passwordTextField = new PasswordField(828, 550, 264, 56, "                  password", 28);
 		passwordTextField.getJComponent().addActionListener(this);
 		panel.add(passwordTextField);
 
