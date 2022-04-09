@@ -209,6 +209,12 @@ public class AddDuelPanel implements ActionListener {
 					JOptionPane.showMessageDialog(null, "You must pick a deck! Register one first if you don't have any!");
 				}
 				
+				String selectedOppDeck = oppDeckComboBox.getJComponent().getSelectedItem().toString();
+				if(selectedOppDeck.equals("ALL_DECKS")) {
+					JOptionPane.showMessageDialog(null, "You must pick your opponent's deck!");
+					return;
+				}
+				
 				HttpController.post("{"
 						+ "        \"coinResult\": "+ getInputFromTwoBoxes(coinWBox, coinLBox) +","
 						+ "        \"first\":" + getInputFromTwoBoxes(firstBox, secondBox) +","
