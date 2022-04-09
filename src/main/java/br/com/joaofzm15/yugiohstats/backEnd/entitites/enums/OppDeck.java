@@ -223,7 +223,7 @@ public enum OppDeck {
 		return code;
 	}
 
-	public static OppDeck returnTheOrderStatusThatCorespondsToTheParameterIntegerCode(int code) {
+	public static OppDeck returnOppDeckThatCorespondsToTheParameterInteger(int code) {
 		for (OppDeck value : OppDeck.values()) {
 			if (value.code == code) {
 				return value;

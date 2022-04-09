@@ -6,6 +6,8 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -178,11 +180,15 @@ public class AddDuelPanel implements ActionListener {
 	}
 	
 	private Integer getOppDeckIdFromComboBox() {
-		int selectedDeckIndex = oppDeckComboBox.getJComponent().getSelectedIndex();
-		if (selectedDeckIndex==0) {
-			throw new FieldInputMismatchException("Please, pick the opponent deck!");
+		String selectedOppDeckToString = oppDeckComboBox.getJComponent().getSelectedItem().toString();
+		OppDeck[] allOppDecksArray = OppDeck.values();
+		ArrayList<OppDeck> allOppDecksList = new ArrayList<>(Arrays.asList(allOppDecksArray));
+		for (OppDeck oppDeck : allOppDecksList) {
+			if(oppDeck.toString().equals(selectedOppDeckToString)) {
+				return oppDeck.getCode();
+			}
 		}
-		return oppDeckComboBox.getJComponent().getSelectedIndex();
+		return null;
 	}
 	
 	private String getCurrentInstantInStringFormat() {

@@ -32,7 +32,7 @@ public class Duel implements Serializable {
 	private boolean coinResult;
 	private boolean first;
 	private boolean result;
-	private OppDeck oppDeck;
+	private Integer oppDeck;
 	private int turns;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT-3")
@@ -48,7 +48,7 @@ public class Duel implements Serializable {
 		this.first=first;
 		this.result = result;
 		this.deck = deck;
-		this.oppDeck = oppDeck;
+		setOppDeck(oppDeck);
 		this.turns = turns;
 		this.date = date;
 	}
@@ -86,11 +86,11 @@ public class Duel implements Serializable {
 	}
 
 	public OppDeck getOppDeck() {
-		return oppDeck;
+		return OppDeck.returnOppDeckThatCorespondsToTheParameterInteger(oppDeck);
 	}
 
 	public void setOppDeck(OppDeck oppDeck) {
-		this.oppDeck = oppDeck;
+		this.oppDeck = oppDeck.getCode();
 	}
 
 	public int getTurns() {
