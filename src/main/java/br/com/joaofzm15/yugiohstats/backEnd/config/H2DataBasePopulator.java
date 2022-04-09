@@ -58,15 +58,15 @@ public class H2DataBasePopulator implements CommandLineRunner {
 		Duel duel17 = new Duel(null, d1, true, false, true, OppDeck.Dragonmaid, 16, Instant.parse("2022-07-26T03:15:56Z"));
 		Duel duel18 = new Duel(null, d1, true, false, true, OppDeck.Numeron, 3, Instant.parse("2022-08-26T03:15:56Z"));
 		
-		Duel duel19 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel20 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel21 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel19 = new Duel(null, d1, true, false, true, OppDeck.Thunder_dragon, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel20 = new Duel(null, d1, true, false, true, OppDeck.DDD, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel21 = new Duel(null, d1, true, false, true, OppDeck.Lyrilusc, 0, Instant.parse("2022-10-26T03:15:56Z"));
 		Duel duel22 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel23 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel24 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel23 = new Duel(null, d1, true, false, true, OppDeck.Zoodiac_tri_brigade, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel24 = new Duel(null, d1, true, false, true, OppDeck.Eldlich, 0, Instant.parse("2022-10-26T03:15:56Z"));
 		Duel duel25 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel26 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
-		Duel duel27 = new Duel(null, d1, true, false, true, OppDeck.Altergeist, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel26 = new Duel(null, d1, true, false, true, OppDeck.Sky_striker, 0, Instant.parse("2022-10-26T03:15:56Z"));
+		Duel duel27 = new Duel(null, d1, true, false, true, OppDeck.Virtual_world, 0, Instant.parse("2022-10-26T03:15:56Z"));
 
 
 		playerRepository.saveAll(Arrays.asList(p1, p2));
