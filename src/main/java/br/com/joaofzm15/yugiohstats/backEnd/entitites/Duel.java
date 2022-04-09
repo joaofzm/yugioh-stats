@@ -40,6 +40,7 @@ public class Duel implements Serializable {
 
 	public Duel() {
 
+		
 	}
 
 	public Duel(Long id, Deck deck, boolean coinResult, boolean first, boolean result, OppDeck oppDeck, int turns, Instant date) {
